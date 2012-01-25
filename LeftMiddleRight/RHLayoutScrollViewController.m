@@ -134,11 +134,10 @@
 
     [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
     [_layoutScrollView setCurrentIndex:_unloadedCurrentIndex animated:NO];
-    _unloadedCurrentIndex = 0;
     
     [self.view addSubview:_layoutScrollView];
     
-    //add our position indicator view
+    //add a position indicator view
     //TODO:
 }
 
@@ -167,6 +166,10 @@
     for (UIViewController *vc in _orderedViewControllers) {
         [vc viewWillAppear:animated];
     }
+    
+    //handle view layout rotations 
+    [_layoutScrollView setCurrentIndex:_unloadedCurrentIndex animated:NO];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -186,6 +189,9 @@
     for (UIViewController *vc in _orderedViewControllers) {
         [vc viewWillDisappear:animated];
     }
+
+    //store the current index so we can make sure we are still alligned after showing and hiding a modal sheet
+    _unloadedCurrentIndex = _layoutScrollView.currentIndex;
 
 } 
 

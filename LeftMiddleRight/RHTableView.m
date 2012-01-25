@@ -39,6 +39,12 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    UIColor *randomColor = [UIColor colorWithRed:(arc4random() % 256 / 256.0f) 
+                                           green:(arc4random() % 256 / 256.0f)  
+                                            blue:(arc4random() % 256 / 256.0f)  
+                                           alpha:1.0f];
+    [self.view setBackgroundColor:randomColor];
 }
 
 - (void)viewDidUnload

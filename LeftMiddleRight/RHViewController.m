@@ -14,8 +14,8 @@
     id _moreController;
 }
 
-- (id)init {
-    self = [super init];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
         self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"More" style:UIBarButtonItemStylePlain target:self action:@selector(showMore:)] autorelease]; 
@@ -33,7 +33,12 @@
 
 -(void)loadView{
     [super loadView];
-    [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+    UIColor *randomColor = [UIColor colorWithRed:(arc4random() % 256 / 256.0f) 
+                                     green:(arc4random() % 256 / 256.0f)  
+                                      blue:(arc4random() % 256 / 256.0f)  
+                                     alpha:1.0f];
+    [self.view setBackgroundColor:randomColor];
 }
 
 - (void)viewDidLoad
