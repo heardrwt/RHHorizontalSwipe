@@ -86,10 +86,7 @@
 			children = (
 				1389610B14CE450F00C64EF3 /* RHAppDelegate.h */,
 				1389610C14CE450F00C64EF3 /* RHAppDelegate.m */,
-				1389612214CF529900C64EF3 /* RHLayoutScrollView.h */,
-				1389612314CF529A00C64EF3 /* RHLayoutScrollView.m */,
-				1389611F14CF427A00C64EF3 /* RHLayoutScrollViewController.h */,
-				1389612014CF427A00C64EF3 /* RHLayoutScrollViewController.m */,
+				1389612914CFBE4D00C64EF3 /* Layout ScrollView */,
 				1389610E14CE450F00C64EF3 /* RHViewController.h */,
 				1389610F14CE450F00C64EF3 /* RHViewController.m */,
 				1389611C14CE4EAC00C64EF3 /* RHTableView.h */,
@@ -108,6 +105,17 @@
 				1389610A14CE450F00C64EF3 /* LeftMiddleRight-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1389612914CFBE4D00C64EF3 /* Layout ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				1389612214CF529900C64EF3 /* RHLayoutScrollView.h */,
+				1389612314CF529A00C64EF3 /* RHLayoutScrollView.m */,
+				1389611F14CF427A00C64EF3 /* RHLayoutScrollViewController.h */,
+				1389612014CF427A00C64EF3 /* RHLayoutScrollViewController.m */,
+			);
+			name = "Layout ScrollView";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

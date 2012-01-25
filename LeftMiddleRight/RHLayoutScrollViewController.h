@@ -9,6 +9,9 @@
 /*
  vc takes an array of view controllers, forwards events to said controllers for rotation and adds them to its views subview scrollview 
  also shows / hides the custom page indicator titles / buttons etc
+ 
+ Uses iOS5 View Controller containment so as to be a good citizen.
+ 
  */
 
 #import <UIKit/UIKit.h>

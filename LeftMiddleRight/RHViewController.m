@@ -8,7 +8,20 @@
 
 #import "RHViewController.h"
 
-@implementation RHViewController
+#import "RHTableView.h"
+
+@implementation RHViewController {
+    id _moreController;
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"More" style:UIBarButtonItemStylePlain target:self action:@selector(showMore:)] autorelease]; 
+    }
+    return self;
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -20,6 +33,7 @@
 
 -(void)loadView{
     [super loadView];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidLoad
@@ -66,6 +80,46 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+#pragma mark - handle more event
+-(void)showMore:(id)sender{
+    if (_moreController){
+        //hide
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
+            [(UIPopoverController*)_moreController dismissPopoverAnimated:YES];
+        } else {
+            //see note below on pre iOS 5
+            //[[[[UIApplication sharedApplication] delegate] layoutScrollViewController] dismissModalViewControllerAnimated:YES];
+            [self dismissModalViewControllerAnimated:YES];
+        }
+        [_moreController release];
+        _moreController = nil;
+        
+    } else {
+        
+        //show
+        RHTableView *vc = [[[RHTableView alloc] init] autorelease];
+        vc.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(showMore:)] autorelease]; 
+
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad){
+            _moreController = [[UIPopoverController alloc] initWithContentViewController:vc];
+            
+            [_moreController presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+
+        } else {
+            _moreController = [[UINavigationController alloc] initWithRootViewController:vc];
+            [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+
+            
+            //Before iOS 5, presenting a modal controller from self  allows for swipes from the modal view controller to switch away from the modal view. 
+            //If you dont want that, you will have to present from the container view controller. (eg appDelegate.layoutScrollViewController)
+            //[[[[UIApplication sharedApplication] delegate] layoutScrollViewController] presentModalViewController:_moreController animated:YES];
+            [self presentModalViewController:_moreController animated:YES];
+        }
+
+    
+    }
 }
 
 @end

@@ -33,7 +33,7 @@
     // Override point for customization after application launch.
 
     self.layoutScrollViewController = [[[RHLayoutScrollViewController alloc] init] autorelease];
-    [self.window addSubview:self.layoutScrollViewController.view];
+    [self.window setRootViewController:self.layoutScrollViewController];
     
     
     //3 display views

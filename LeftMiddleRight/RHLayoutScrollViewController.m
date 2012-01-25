@@ -79,9 +79,32 @@
 
 -(void)setOrderedViewControllers:(NSArray *)orderedViewControllers{
     if (_orderedViewControllers != orderedViewControllers){
+        
+        [_layoutScrollView setOrderedViews:nil];
+        
+        //iOS5+ remove from containment
+        if ([UIViewController instancesRespondToSelector:@selector(willMoveToParentViewController:)] && 
+            [UIViewController instancesRespondToSelector:@selector(removeFromParentViewController:)]){
+            for (UIViewController *vc in _orderedViewControllers) {
+                [vc willMoveToParentViewController:nil];
+                [vc removeFromParentViewController];
+            }
+        }
+        
+        //stash
         [_orderedViewControllers release];
         _orderedViewControllers = [orderedViewControllers retain];
         
+        //iOS5+ add to containment
+        if ([UIViewController instancesRespondToSelector:@selector(addChildViewController:)] && 
+            [UIViewController instancesRespondToSelector:@selector(didMoveToParentViewController:)]){
+            for (UIViewController *vc in _orderedViewControllers) {
+                [self addChildViewController:vc];
+                [vc didMoveToParentViewController:self];
+            }
+        }        
+        
+        //redisplay
         [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
     }
 }
@@ -95,7 +118,6 @@
 }
 
 #pragma mark - View lifecycle
-
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
@@ -137,7 +159,53 @@
     [super viewDidUnload];
 }
 
-#pragma mark - View Ocrientation Forwarding Logic.
+#pragma mark - view appearance
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+
+    //fwd
+    for (UIViewController *vc in _orderedViewControllers) {
+        [vc viewWillAppear:animated];
+    }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+    //fwd
+    for (UIViewController *vc in _orderedViewControllers) {
+        [vc viewDidAppear:animated];
+    }
+
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    //fwd
+    for (UIViewController *vc in _orderedViewControllers) {
+        [vc viewWillDisappear:animated];
+    }
+
+} 
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    //fwd
+    for (UIViewController *vc in _orderedViewControllers) {
+        [vc viewDidDisappear:animated];
+    }
+
+}
+
+#pragma mark - view controller containment logic
+- (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers{
+    return NO;
+}
+
+
+#pragma mark - View Orientation Forwarding Logic.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES if all our current controllers support this orientation
     
