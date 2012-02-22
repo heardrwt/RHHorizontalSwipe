@@ -8,12 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RHLayoutScrollView : UIScrollView{
+@class RHLayoutScrollView;
+@protocol RHLayoutScrollViewDelegate <NSObject>
+
+-(void)scrollView:(RHLayoutScrollView*)scrollView updateForPercentagePosition:(CGFloat)position;
+
+@end
+
+@interface RHLayoutScrollView : UIView <UIScrollViewDelegate>{
+    id <RHLayoutScrollViewDelegate> _delegate; //weak
+    
+    UIScrollView *_scrollView;
     NSArray *_orderedViews;
 }
+//delegate
+@property (assign, nonatomic) id <RHLayoutScrollViewDelegate> delegate;
 
+//views
+@property (readonly, nonatomic) UIScrollView *scrollView;
 @property (retain, nonatomic) NSArray *orderedViews;
 
+//index
 @property (assign, nonatomic) NSUInteger currentIndex;
 -(void)setCurrentIndex:(NSUInteger)currentIndex animated:(BOOL)animated;
 

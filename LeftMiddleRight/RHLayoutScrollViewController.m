@@ -12,6 +12,8 @@
 
 #import "RHLayoutScrollView.h"
 
+#define kRHScrollViewControllerShowHideOverlayAnimationDuration 0.25
+
 @implementation RHLayoutScrollViewController {
     NSUInteger _unloadedCurrentIndex;
     NSUInteger _preRotationIndex;
@@ -20,6 +22,8 @@
     
     RHLayoutScrollView *_layoutScrollView;
 
+    NSMutableSet *_overlayViews;
+    BOOL _overlayViewsHidden;
 }
 
 - (id)init {
@@ -27,6 +31,7 @@
     if (self) {
         // Custom initialization
         self.wantsFullScreenLayout = YES;
+        _overlayViews = [[NSMutableSet alloc] init];
     }
     return self;
 }
@@ -38,9 +43,23 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#define RN(x) [x release]; x = nil;
+
 - (void)dealloc {
-    [_orderedViewControllers release]; _orderedViewControllers  = nil;    
-    [_layoutScrollView release]; _layoutScrollView = nil;
+        
+    //notify overlay views of our destruction
+    for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+        if ([overlayView respondsToSelector:@selector(removedFromScrollViewController:)]){
+            [overlayView removedFromScrollViewController:self];
+        }
+    }
+
+    //regular cleanup
+    
+    RN(_orderedViewControllers);
+    _layoutScrollView.delegate = nil;
+    RN(_layoutScrollView);
+    RN(_overlayViews);
 
     [super dealloc];
 }
@@ -106,15 +125,29 @@
         
         //redisplay
         [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
+        
+        //notify overlay views
+        for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+            if ([overlayView respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
+                [overlayView scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
+            }
+            
+        if ([overlayView respondsToSelector:@selector(scrollViewController:orderedViewControllersChanged:)]){
+            [overlayView scrollViewController:self orderedViewControllersChanged:_orderedViewControllers];
+        }
+            
+            
+        }
+
     }
 }
 
 -(void)setLocked:(BOOL)locked{
-    _layoutScrollView.scrollEnabled = !locked;
+    _layoutScrollView.scrollView.scrollEnabled = !locked;
 }
 
 -(BOOL)isLocked{
-    return !_layoutScrollView.scrollEnabled;
+    return !_layoutScrollView.scrollView.scrollEnabled;
 }
 
 #pragma mark - View lifecycle
@@ -129,16 +162,23 @@
     //add our scrollview
     _layoutScrollView = [[RHLayoutScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _layoutScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _layoutScrollView.pagingEnabled = YES;
     [_layoutScrollView setBackgroundColor:[UIColor orangeColor]];
+    _layoutScrollView.delegate = self;
 
     [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
     [_layoutScrollView setCurrentIndex:_unloadedCurrentIndex animated:NO];
     
     [self.view addSubview:_layoutScrollView];
+        
+    //add our overlay views, respecting the hidden flag
+    for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+        if (!( [overlayView respondsToSelector:@selector(alwaysVisible)] && [overlayView alwaysVisible])){
+            overlayView.alpha = _overlayViewsHidden ? 0.0f : 1.0f;
+        }
+        [self.view addSubview:overlayView];
+    }
+
     
-    //add a position indicator view
-    //TODO:
 }
 
 -(void)viewDidLoad{
@@ -205,6 +245,57 @@
 
 }
 
+#pragma mark - overlay view logic
+-(void)addOverlayView:(UIView <RHLayoutScrollViewControllerOverlayViewProtocol> *)view{
+    [_overlayViews addObject:view];
+    //add if view is loaded
+    if (self.isViewLoaded) [self.view addSubview:view];
+    
+    
+    //notify the new view of its environment
+    if ([view respondsToSelector:@selector(addedToScrollViewController:)]){
+        [view addedToScrollViewController:self];
+    }
+
+    if ([view respondsToSelector:@selector(scrollViewController:orderedViewControllersChanged:)]){
+        [view scrollViewController:self orderedViewControllersChanged:_orderedViewControllers];
+    }    
+    
+    
+    if ([view respondsToSelector:@selector(scrollViewController:updateCurrentPage:)]){
+        [view scrollViewController:self updateCurrentPage:[self currentIndex]];
+    }
+    
+}
+
+-(void)removeOverlayView:(UIView <RHLayoutScrollViewControllerOverlayViewProtocol> *)view{
+    [_overlayViews removeObject:view];
+    //remove from superview if its currently in our container view
+    if ([[view superview] isEqual:self.view]) [view removeFromSuperview];
+    
+    if ([view respondsToSelector:@selector(removedFromScrollViewController:)]){
+        [view removedFromScrollViewController:self];
+    }
+
+}
+
+-(void)setOverlayViewsHidden:(BOOL)hidden animated:(BOOL)animated{
+    NSTimeInterval duration = animated ? kRHScrollViewControllerShowHideOverlayAnimationDuration : 0.0f;
+    
+    [UIView animateWithDuration:duration animations:^{
+        for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+            if (!( [overlayView respondsToSelector:@selector(alwaysVisible)] && [overlayView alwaysVisible])){
+                overlayView.alpha = hidden ? 0.0f : 1.0f;
+            }
+        }
+    
+    } completion:^(BOOL finished) {
+        _overlayViewsHidden = hidden;
+    }];
+    
+}
+
+
 #pragma mark - view controller containment logic
 - (BOOL)automaticallyForwardAppearanceAndRotationMethodsToChildViewControllers{
     return NO;
@@ -260,6 +351,18 @@
     
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
+
+#pragma mark - RHLayoutScrollViewDelegate
+
+-(void)scrollView:(RHLayoutScrollView*)scrollView updateForPercentagePosition:(CGFloat)position{
+    for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+        if ([overlayView respondsToSelector:@selector(scrollViewController:updateForPercentagePosition:)]){
+            [overlayView scrollViewController:self updateForPercentagePosition:position];
+        }
+    }
+}
+
+
 
 
 @end

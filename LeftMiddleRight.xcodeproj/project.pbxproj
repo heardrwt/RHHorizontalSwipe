@@ -17,9 +17,11 @@
 		1389611E14CE4EAD00C64EF3 /* RHTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1389611D14CE4EAD00C64EF3 /* RHTableView.m */; };
 		1389612114CF427A00C64EF3 /* RHLayoutScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1389612014CF427A00C64EF3 /* RHLayoutScrollViewController.m */; };
 		1389612414CF529A00C64EF3 /* RHLayoutScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1389612314CF529A00C64EF3 /* RHLayoutScrollView.m */; };
+		13B63DE914F467A00064DF06 /* RHLayoutScrollViewSliderBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B63DE814F467A00064DF06 /* RHLayoutScrollViewSliderBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1385CDA114F4429B00B77297 /* RHLayoutScrollViewControllerOverlayViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewControllerOverlayViewProtocol.h; sourceTree = "<group>"; };
 		138960F814CE450F00C64EF3 /* LeftMiddleRight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftMiddleRight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		138960FC14CE450F00C64EF3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		138960FE14CE450F00C64EF3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -38,6 +40,8 @@
 		1389612014CF427A00C64EF3 /* RHLayoutScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollViewController.m; sourceTree = "<group>"; };
 		1389612214CF529900C64EF3 /* RHLayoutScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollView.h; sourceTree = "<group>"; };
 		1389612314CF529A00C64EF3 /* RHLayoutScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollView.m; sourceTree = "<group>"; };
+		13B63DE714F467A00064DF06 /* RHLayoutScrollViewSliderBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewSliderBar.h; sourceTree = "<group>"; };
+		13B63DE814F467A00064DF06 /* RHLayoutScrollViewSliderBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollViewSliderBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,9 @@
 				1389612314CF529A00C64EF3 /* RHLayoutScrollView.m */,
 				1389611F14CF427A00C64EF3 /* RHLayoutScrollViewController.h */,
 				1389612014CF427A00C64EF3 /* RHLayoutScrollViewController.m */,
+				1385CDA114F4429B00B77297 /* RHLayoutScrollViewControllerOverlayViewProtocol.h */,
+				13B63DE714F467A00064DF06 /* RHLayoutScrollViewSliderBar.h */,
+				13B63DE814F467A00064DF06 /* RHLayoutScrollViewSliderBar.m */,
 			);
 			name = "Layout ScrollView";
 			sourceTree = "<group>";
@@ -186,6 +193,7 @@
 				1389611E14CE4EAD00C64EF3 /* RHTableView.m in Sources */,
 				1389612114CF427A00C64EF3 /* RHLayoutScrollViewController.m in Sources */,
 				1389612414CF529A00C64EF3 /* RHLayoutScrollView.m in Sources */,
+				13B63DE914F467A00064DF06 /* RHLayoutScrollViewSliderBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +299,7 @@
 				1389611B14CE450F00C64EF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

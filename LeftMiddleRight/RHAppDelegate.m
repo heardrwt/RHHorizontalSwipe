@@ -14,6 +14,8 @@
 #import "RHTableView.h"
 #import "RHLayoutScrollView.h"
 
+#import "RHLayoutScrollViewSliderBar.h"
+
 @implementation RHAppDelegate
 
 @synthesize window = _window;
@@ -66,9 +68,14 @@
                                                middleViewController,
                                                rightViewController,
                                                nil]];
-    [self.layoutScrollViewController setCurrentIndex:1];
+    
+    //install the slider bar
+    RHLayoutScrollViewSliderBar *sliderBar = [[[RHLayoutScrollViewSliderBar alloc] initWithFrame:CGRectMake(0.0f, 480.0f - 22.0f, 320.0f, 22.0f)] autorelease];
+    [self.layoutScrollViewController addOverlayView:sliderBar];
 
     
+    [self.layoutScrollViewController setCurrentIndex:1];
+
     [self.window makeKeyAndVisible];
     return YES;
 }
