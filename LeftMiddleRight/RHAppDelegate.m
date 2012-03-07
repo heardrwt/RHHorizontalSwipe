@@ -15,6 +15,9 @@
 #import "RHLayoutScrollView.h"
 
 #import "RHLayoutScrollViewSliderBar.h"
+#import "RHLayoutScrollViewExpandingButtonView.h"
+
+#import <QuartzCore/QuartzCore.h>
 
 @implementation RHAppDelegate
 
@@ -63,17 +66,39 @@
     vc.title = @"Right";
     UIViewController *rightViewController = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
 
+    NSArray *controllers = [NSArray arrayWithObjects:leftViewController, 
+                            middleViewController,
+                            rightViewController, nil];
+    
     //add them as the ordered views in the layoutScrollViewController
-    [self.layoutScrollViewController setOrderedViewControllers:[NSArray arrayWithObjects:leftViewController, 
-                                               middleViewController,
-                                               rightViewController,
-                                               nil]];
+    [self.layoutScrollViewController setOrderedViewControllers:controllers];
     
     //install the slider bar
     RHLayoutScrollViewSliderBar *sliderBar = [[[RHLayoutScrollViewSliderBar alloc] initWithFrame:CGRectMake(0.0f, 480.0f - 22.0f, 320.0f, 22.0f)] autorelease];
     [self.layoutScrollViewController addOverlayView:sliderBar];
 
+    //install the expanding Button view
+    RHLayoutScrollViewExpandingButtonView *sliderButton = [[[RHLayoutScrollViewExpandingButtonView alloc] initWithFrame:CGRectMake(0.0f, 480.0f - 40.0f - 22.0f, 320.0f, 40.0f)] autorelease];
+    [self.layoutScrollViewController addOverlayView:sliderButton];
+    sliderButton.startPercentage = 0.50f;
+    sliderButton.endPercentage = 1.00f;
     
+
+    //set some expanding button demo properties
+    [sliderButton.leftButton setTitle:@"L" forState:UIControlStateNormal];
+    [sliderButton.rightButton setTitle:@"R" forState:UIControlStateNormal];
+    
+    sliderButton.leftButton.clipsToBounds = YES;
+    sliderButton.rightButton.clipsToBounds = YES;
+
+    sliderButton.leftButton.layer.cornerRadius = 10.0f;
+    sliderButton.rightButton.layer.cornerRadius = 10.0f;
+
+    sliderButton.leftButton.backgroundColor = [UIColor lightGrayColor];
+    sliderButton.rightButton.backgroundColor = [UIColor lightGrayColor];
+    
+    
+    //set our current controller to 1
     [self.layoutScrollViewController setCurrentIndex:1];
 
     [self.window makeKeyAndVisible];

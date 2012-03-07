@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
 //
 
+//overlay view used to give the user context as to where they are in their horizontal swipes.
+
 #import <UIKit/UIKit.h>
 
 #import "RHLayoutScrollViewControllerOverlayViewProtocol.h"
