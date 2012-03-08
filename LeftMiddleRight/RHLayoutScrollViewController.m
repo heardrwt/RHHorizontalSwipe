@@ -30,8 +30,6 @@
 
 #import "RHLayoutScrollViewController.h"
 
-#import "RHAppDelegate.h"
-
 #import "RHLayoutScrollView.h"
 
 #define kRHScrollViewControllerShowHideOverlayAnimationDuration 0.3f
