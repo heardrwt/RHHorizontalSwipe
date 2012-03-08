@@ -221,7 +221,7 @@
     //add our scrollview
     _layoutScrollView = [[RHLayoutScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _layoutScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    [_layoutScrollView setBackgroundColor:[UIColor orangeColor]];
+    [_layoutScrollView setBackgroundColor:[UIColor lightGrayColor]];
     _layoutScrollView.delegate = self;
 
     [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
