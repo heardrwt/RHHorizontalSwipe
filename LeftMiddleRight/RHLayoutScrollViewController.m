@@ -138,7 +138,7 @@
         
         //iOS5+ remove from containment
         if ([UIViewController instancesRespondToSelector:@selector(willMoveToParentViewController:)] && 
-            [UIViewController instancesRespondToSelector:@selector(removeFromParentViewController:)]){
+            [UIViewController instancesRespondToSelector:@selector(removeFromParentViewController)]){
             for (UIViewController *vc in _orderedViewControllers) {
                 [vc willMoveToParentViewController:nil];
                 [vc removeFromParentViewController];
