@@ -1,5 +1,5 @@
 //
-//  RHLayoutScrollViewExpandingButton.m
+//  RHLayoutScrollViewExpandingButtonView.m
 //  LeftMiddleRight
 //
 //  Created by Richard Heard on 5/03/12.

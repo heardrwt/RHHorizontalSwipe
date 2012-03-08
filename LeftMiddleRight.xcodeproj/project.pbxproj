@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		137AF8C9150544A200044DF1 /* RHLayoutScrollViewExpandingTwoButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingTwoButtonView.m */; };
+		137AF8C9150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m */; };
 		138960FD14CE450F00C64EF3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 138960FC14CE450F00C64EF3 /* UIKit.framework */; };
 		138960FF14CE450F00C64EF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 138960FE14CE450F00C64EF3 /* Foundation.framework */; };
 		1389610114CE450F00C64EF3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1389610014CE450F00C64EF3 /* CoreGraphics.framework */; };
@@ -23,7 +23,7 @@
 
 /* Begin PBXFileReference section */
 		137AF8C7150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewExpandingButtonView.h; sourceTree = "<group>"; };
-		137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingTwoButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollViewExpandingTwoButtonView.m; sourceTree = "<group>"; };
+		137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollViewExpandingButtonView.m; sourceTree = "<group>"; };
 		1385CDA114F4429B00B77297 /* RHLayoutScrollViewControllerOverlayViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewControllerOverlayViewProtocol.h; sourceTree = "<group>"; };
 		138960F814CE450F00C64EF3 /* LeftMiddleRight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftMiddleRight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		138960FC14CE450F00C64EF3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -125,7 +125,7 @@
 				13B63DE714F467A00064DF06 /* RHLayoutScrollViewSliderBar.h */,
 				13B63DE814F467A00064DF06 /* RHLayoutScrollViewSliderBar.m */,
 				137AF8C7150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.h */,
-				137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingTwoButtonView.m */,
+				137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m */,
 			);
 			name = LayoutScrollViewController;
 			sourceTree = "<group>";
@@ -199,7 +199,7 @@
 				1389612114CF427A00C64EF3 /* RHLayoutScrollViewController.m in Sources */,
 				1389612414CF529A00C64EF3 /* RHLayoutScrollView.m in Sources */,
 				13B63DE914F467A00064DF06 /* RHLayoutScrollViewSliderBar.m in Sources */,
-				137AF8C9150544A200044DF1 /* RHLayoutScrollViewExpandingTwoButtonView.m in Sources */,
+				137AF8C9150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
