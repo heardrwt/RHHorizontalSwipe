@@ -22,7 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		137AF8C7150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = RHLayoutScrollViewExpandingButtonView.h; sourceTree = "<group>"; };
+		137AF8C7150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewExpandingButtonView.h; sourceTree = "<group>"; };
 		137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingTwoButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollViewExpandingTwoButtonView.m; sourceTree = "<group>"; };
 		1385CDA114F4429B00B77297 /* RHLayoutScrollViewControllerOverlayViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewControllerOverlayViewProtocol.h; sourceTree = "<group>"; };
 		138960F814CE450F00C64EF3 /* LeftMiddleRight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftMiddleRight.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +93,7 @@
 			children = (
 				1389610B14CE450F00C64EF3 /* RHAppDelegate.h */,
 				1389610C14CE450F00C64EF3 /* RHAppDelegate.m */,
-				1389612914CFBE4D00C64EF3 /* Layout ScrollView */,
+				1389612914CFBE4D00C64EF3 /* LayoutScrollViewController */,
 				1389610E14CE450F00C64EF3 /* RHViewController.h */,
 				1389610F14CE450F00C64EF3 /* RHViewController.m */,
 				1389611C14CE4EAC00C64EF3 /* RHTableView.h */,
@@ -114,7 +114,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1389612914CFBE4D00C64EF3 /* Layout ScrollView */ = {
+		1389612914CFBE4D00C64EF3 /* LayoutScrollViewController */ = {
 			isa = PBXGroup;
 			children = (
 				1389612214CF529900C64EF3 /* RHLayoutScrollView.h */,
@@ -127,7 +127,7 @@
 				137AF8C7150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.h */,
 				137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingTwoButtonView.m */,
 			);
-			name = "Layout ScrollView";
+			name = LayoutScrollViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

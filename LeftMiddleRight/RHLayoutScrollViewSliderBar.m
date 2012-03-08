@@ -88,7 +88,9 @@
 
 -(IBAction)barButtonPressed:(id)sender{
     NSInteger index = [_buttons indexOfObject:sender];
-    [_currentController setCurrentIndex:index animated:YES];
+    if (!_currentController.isLocked){
+        [_currentController setCurrentIndex:index animated:YES];
+    }
 }
 
 #pragma mark - RHLayoutScrollViewControllerOverlayViewProtocol

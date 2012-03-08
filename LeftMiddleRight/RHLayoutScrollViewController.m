@@ -12,7 +12,15 @@
 
 #import "RHLayoutScrollView.h"
 
-#define kRHScrollViewControllerShowHideOverlayAnimationDuration 0.25
+#define kRHScrollViewControllerShowHideOverlayAnimationDuration 0.3f
+
+//private
+@interface RHLayoutScrollViewController ()
+
+-(void)registerNavigationControllerDelegates;
+-(void)deregisterNavigationControllerDelegates;
+
+@end
 
 @implementation RHLayoutScrollViewController {
     NSUInteger _unloadedCurrentIndex;
@@ -54,6 +62,9 @@
         }
     }
 
+    //remove any delegates that point to us
+    [self deregisterNavigationControllerDelegates];
+    
     //regular cleanup
     
     RN(_orderedViewControllers);
@@ -68,6 +79,8 @@
 #pragma mark - Properties
 @synthesize orderedViewControllers=_orderedViewControllers;
 @synthesize layoutScrollView=_layoutScrollView;
+@synthesize autoLockingEnabled=_autoLockingEnabled;
+@synthesize autoHidingEnabled=_autoHidingEnabled;
 
 -(NSUInteger)currentIndex{
     if ([self isViewLoaded]){
@@ -98,6 +111,8 @@
 
 -(void)setOrderedViewControllers:(NSArray *)orderedViewControllers{
     if (_orderedViewControllers != orderedViewControllers){
+        
+        [self deregisterNavigationControllerDelegates]; //unset delegates
         
         [_layoutScrollView setOrderedViews:nil];
         
@@ -132,13 +147,14 @@
                 [overlayView scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
             }
             
-        if ([overlayView respondsToSelector:@selector(scrollViewController:orderedViewControllersChanged:)]){
-            [overlayView scrollViewController:self orderedViewControllersChanged:_orderedViewControllers];
-        }
+            if ([overlayView respondsToSelector:@selector(scrollViewController:orderedViewControllersChanged:)]){
+                [overlayView scrollViewController:self orderedViewControllersChanged:_orderedViewControllers];
+            }
             
-            
         }
-
+    
+    [self registerNavigationControllerDelegates]; //re-set delegates
+    
     }
 }
 
@@ -148,6 +164,29 @@
 
 -(BOOL)isLocked{
     return !_layoutScrollView.scrollView.scrollEnabled;
+}
+
+-(void)setAutoLockingEnabled:(BOOL)autoLockingEnabled{
+    _autoLockingEnabled = autoLockingEnabled;
+
+    //toggle stuff...
+    
+}
+
+-(void)registerNavigationControllerDelegates{
+    for (UINavigationController *controller in _orderedViewControllers) {
+        if ([controller isKindOfClass:[UINavigationController class]] && !controller.delegate){
+            controller.delegate = self;
+        }
+    }
+}
+
+-(void)deregisterNavigationControllerDelegates{
+    for (UINavigationController *controller in _orderedViewControllers) {
+        if ([controller isKindOfClass:[UINavigationController class]] && controller.delegate == self){
+            controller.delegate = nil;
+        }
+    }
 }
 
 #pragma mark - View lifecycle
@@ -266,6 +305,9 @@
         [view scrollViewController:self updateCurrentPage:[self currentIndex]];
     }
     
+    //set hidden value
+    view.alpha = _overlayViewsHidden ? 0.0f : 1.0f;
+
 }
 
 -(void)removeOverlayView:(UIView <RHLayoutScrollViewControllerOverlayViewProtocol> *)view{
@@ -362,7 +404,26 @@
     }
 }
 
-
+#pragma mark - UINavigationControllerDelegate
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    //if auto locking is enabled we need to check to see if any root nav controller is currently not showing its root view controller, if so. lock, otherwise unlock
+        BOOL shouldLock = NO;
+        BOOL shouldHide = NO;
+        
+        for (UINavigationController *controller in _orderedViewControllers) {
+            if ([controller isKindOfClass:[UINavigationController class]] && controller.delegate == self){
+                NSUInteger index = [[controller viewControllers] indexOfObject:controller.topViewController];
+                if (index != 0 && index != NSNotFound){
+                    shouldLock = YES;
+                    shouldHide = YES;
+                }
+            }
+        }
+    
+    if (_autoLockingEnabled) [self setLocked:shouldLock];
+    if (_autoHidingEnabled) [self setOverlayViewsHidden:shouldHide animated:YES];
+    
+}
 
 
 @end
