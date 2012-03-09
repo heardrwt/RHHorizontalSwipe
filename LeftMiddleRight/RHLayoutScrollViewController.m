@@ -52,6 +52,9 @@
 
     NSMutableSet *_overlayViews;
     BOOL _overlayViewsHidden;
+    
+    BOOL _willFlag; //used to decide if we need to send viewWillAppear/viewWillDisapear to controllers when setting orderedViewControllers 
+    BOOL _didFlag; //used to decide if we need to send viewDidAppear/viewDidDisapear to controllers when setting orderedViewControllers 
 }
 
 - (id)init {
@@ -142,6 +145,10 @@
             for (UIViewController *vc in _orderedViewControllers) {
                 [vc willMoveToParentViewController:nil];
                 [vc removeFromParentViewController];
+                
+                //call the will / did disapear methods (only if we are currently loaded)
+                if(_willFlag)[vc viewWillDisappear:NO];
+                if(_didFlag)[vc viewDidDisappear:NO];
             }
         }
         
@@ -155,6 +162,10 @@
             for (UIViewController *vc in _orderedViewControllers) {
                 [self addChildViewController:vc];
                 [vc didMoveToParentViewController:self];
+                
+                //call the will / did appear methods (only if we are currently loaded)
+                if (_willFlag)[vc viewWillAppear:NO];
+                if (_didFlag)[vc viewDidAppear:NO];
             }
         }        
         
@@ -269,6 +280,8 @@
     //handle view layout rotations 
     [_layoutScrollView setCurrentIndex:_unloadedCurrentIndex animated:NO];
 
+    //save flag
+    _willFlag = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -279,6 +292,8 @@
         [vc viewDidAppear:animated];
     }
 
+    //save flag
+    _didFlag = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -292,6 +307,8 @@
     //store the current index so we can make sure we are still alligned after showing and hiding a modal sheet
     _unloadedCurrentIndex = _layoutScrollView.currentIndex;
 
+    //reset flag
+    _willFlag = NO;
 } 
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -302,6 +319,8 @@
         [vc viewDidDisappear:animated];
     }
 
+    //reset flag
+    _didFlag = NO;
 }
 
 #pragma mark - overlay view logic
