@@ -49,7 +49,7 @@
     NSArray *_orderedViewControllers;
     
     RHLayoutScrollView *_layoutScrollView;
-
+    
     NSMutableSet *_overlayViews;
     BOOL _overlayViewsHidden;
     
@@ -77,14 +77,14 @@
 #define RN(x) [x release]; x = nil;
 
 - (void)dealloc {
-        
+    
     //notify overlay views of our destruction
     for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
         if ([overlayView respondsToSelector:@selector(removedFromScrollViewController:)]){
             [overlayView removedFromScrollViewController:self];
         }
     }
-
+    
     //remove any delegates that point to us
     [self deregisterNavigationControllerDelegates];
     
@@ -94,7 +94,7 @@
     _layoutScrollView.delegate = nil;
     RN(_layoutScrollView);
     RN(_overlayViews);
-
+    
     [super dealloc];
 }
 
@@ -109,7 +109,7 @@
     if ([self isViewLoaded]){
         return _layoutScrollView.currentIndex;
     } else {
-       return _unloadedCurrentIndex;
+        return _unloadedCurrentIndex;
     }    
 }
 
@@ -183,9 +183,9 @@
             }
             
         }
-    
-    [self registerNavigationControllerDelegates]; //re-set delegates
-    
+        
+        [self registerNavigationControllerDelegates]; //re-set delegates
+        
     }
 }
 
@@ -199,7 +199,7 @@
 
 -(void)setAutoLockingEnabled:(BOOL)autoLockingEnabled{
     _autoLockingEnabled = autoLockingEnabled;
-
+    
     //toggle stuff...
     
 }
@@ -234,12 +234,12 @@
     _layoutScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_layoutScrollView setBackgroundColor:[UIColor lightGrayColor]];
     _layoutScrollView.delegate = self;
-
+    
     [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
     [_layoutScrollView setCurrentIndex:_unloadedCurrentIndex animated:NO];
     
     [self.view addSubview:_layoutScrollView];
-        
+    
     //add our overlay views, respecting the hidden flag
     for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
         if (!( [overlayView respondsToSelector:@selector(alwaysVisible)] && [overlayView alwaysVisible])){
@@ -247,19 +247,19 @@
         }
         [self.view addSubview:overlayView];
     }
-
+    
     
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-
+    
 }
 
 -(void)viewWillUnload{
     //store off our current index into the unloaded index variable so we can restore to the same state if needed
     _unloadedCurrentIndex = _layoutScrollView.currentIndex;
-
+    
     [super viewWillUnload];
 }
 - (void)viewDidUnload{
@@ -271,7 +271,7 @@
 #pragma mark - view appearance
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    
     //fwd
     for (UIViewController *vc in _orderedViewControllers) {
         [vc viewWillAppear:animated];
@@ -279,7 +279,7 @@
     
     //handle view layout rotations 
     [_layoutScrollView setCurrentIndex:_unloadedCurrentIndex animated:NO];
-
+    
     //save flag
     _willFlag = YES;
 }
@@ -291,7 +291,7 @@
     for (UIViewController *vc in _orderedViewControllers) {
         [vc viewDidAppear:animated];
     }
-
+    
     //save flag
     _didFlag = YES;
 }
@@ -303,10 +303,10 @@
     for (UIViewController *vc in _orderedViewControllers) {
         [vc viewWillDisappear:animated];
     }
-
+    
     //store the current index so we can make sure we are still alligned after showing and hiding a modal sheet
     _unloadedCurrentIndex = _layoutScrollView.currentIndex;
-
+    
     //reset flag
     _willFlag = NO;
 } 
@@ -318,7 +318,7 @@
     for (UIViewController *vc in _orderedViewControllers) {
         [vc viewDidDisappear:animated];
     }
-
+    
     //reset flag
     _didFlag = NO;
 }
@@ -334,7 +334,7 @@
     if ([view respondsToSelector:@selector(addedToScrollViewController:)]){
         [view addedToScrollViewController:self];
     }
-
+    
     if ([view respondsToSelector:@selector(scrollViewController:orderedViewControllersChanged:)]){
         [view scrollViewController:self orderedViewControllersChanged:_orderedViewControllers];
     }    
@@ -346,7 +346,7 @@
     
     //set hidden value
     view.alpha = _overlayViewsHidden ? 0.0f : 1.0f;
-
+    
 }
 
 -(void)removeOverlayView:(UIView <RHLayoutScrollViewControllerOverlayViewProtocol> *)view{
@@ -357,7 +357,7 @@
     if ([view respondsToSelector:@selector(removedFromScrollViewController:)]){
         [view removedFromScrollViewController:self];
     }
-
+    
 }
 
 -(void)setOverlayViewsHidden:(BOOL)hidden animated:(BOOL)animated{
@@ -369,7 +369,7 @@
                 overlayView.alpha = hidden ? 0.0f : 1.0f;
             }
         }
-    
+        
     } completion:^(BOOL finished) {
         _overlayViewsHidden = hidden;
     }];
@@ -401,10 +401,10 @@
             [(id)vc willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
         }
     }
-
+    
     //store the current index so we can animate to it during rotation
     _preRotationIndex = _layoutScrollView.currentIndex;
-
+    
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
@@ -418,7 +418,7 @@
     
     //handle view layout rotations 
     [_layoutScrollView setCurrentIndex:_preRotationIndex animated:NO];
-
+    
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
@@ -446,18 +446,18 @@
 #pragma mark - UINavigationControllerDelegate
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
     //if auto locking is enabled we need to check to see if any root nav controller is currently not showing its root view controller, if so. lock, otherwise unlock
-        BOOL shouldLock = NO;
-        BOOL shouldHide = NO;
-        
-        for (UINavigationController *controller in _orderedViewControllers) {
-            if ([controller isKindOfClass:[UINavigationController class]] && controller.delegate == self){
-                NSUInteger index = [[controller viewControllers] indexOfObject:controller.topViewController];
-                if (index != 0 && index != NSNotFound){
-                    shouldLock = YES;
-                    shouldHide = YES;
-                }
+    BOOL shouldLock = NO;
+    BOOL shouldHide = NO;
+    
+    for (UINavigationController *controller in _orderedViewControllers) {
+        if ([controller isKindOfClass:[UINavigationController class]] && controller.delegate == self){
+            NSUInteger index = [[controller viewControllers] indexOfObject:controller.topViewController];
+            if (index != 0 && index != NSNotFound){
+                shouldLock = YES;
+                shouldHide = YES;
             }
         }
+    }
     
     if (_autoLockingEnabled) [self setLocked:shouldLock];
     if (_autoHidingEnabled) [self setOverlayViewsHidden:shouldHide animated:YES];

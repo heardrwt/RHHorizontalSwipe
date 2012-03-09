@@ -37,7 +37,7 @@
 
 @interface RHLayoutScrollViewSliderBar : UIView <RHLayoutScrollViewControllerOverlayViewProtocol> {
     NSArray *_buttons;
-
+    
     UIImageView *_sliderBar;
     
     RHLayoutScrollViewController *_currentController; //weak

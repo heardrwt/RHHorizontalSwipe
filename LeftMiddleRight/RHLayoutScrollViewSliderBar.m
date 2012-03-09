@@ -57,7 +57,7 @@
 
 - (void)dealloc {
     RN(_sliderBar);
-
+    
     [super dealloc];
 }
 
@@ -66,7 +66,7 @@
 //update the center of the slider to the specified percentage
 -(void)updateSliderToPosition:(CGFloat)position{
     [self layoutIfNeeded]; //force a layout so we know current width
-
+    
     CGRect frame = _sliderBar.frame;
     frame.origin.x = ((self.bounds.size.width - frame.size.width) * position);
     _sliderBar.frame = frame;
@@ -87,7 +87,7 @@
     CGFloat buttonH = sliderH;
     CGFloat buttonX = 0.0f;
     CGFloat buttonY = 0.0f;
-        
+    
     for (UIButton *button in _buttons) {
         button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
         buttonX += buttonW;

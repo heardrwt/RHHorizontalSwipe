@@ -39,12 +39,12 @@
     
     RHLayoutScrollViewController *_currentController; //weak
     NSUInteger _fullWidthIndex;
-
+    
     NSUInteger _numberOfPages;
-
+    
     UIButton *_leftButton;
     UIButton *_rightButton;
- 
+    
 }
 
 

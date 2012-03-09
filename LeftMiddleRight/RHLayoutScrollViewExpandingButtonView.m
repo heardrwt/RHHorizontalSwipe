@@ -56,7 +56,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.clipsToBounds = YES;
-
+        
         _leftButton = [[UIButton alloc] initWithFrame:CGRectZero];
         [self addSubview:_leftButton];
         
@@ -74,7 +74,7 @@
 {
     RN(_leftButton);
     RN(_rightButton);
-
+    
     _currentController = nil; //weak
     
     [super dealloc];
@@ -89,7 +89,7 @@
     
     if (_startPercentage <= _endPercentage){
         //normal direction
-    
+        
         if (position < _startPercentage){
             //minimum size
             [self applyAnimation:0.0f];
@@ -105,7 +105,7 @@
             ratio = ratio * (1.0f / (_endPercentage - _startPercentage));
             [self applyAnimation:ratio];
         }
-    
+        
     } else {
         //backwards people, backwards
         
@@ -126,7 +126,7 @@
         }
     }
     
-
+    
 }
 
 //value between 0.0 and 1.0
@@ -149,11 +149,11 @@
     CGFloat rightY = buttonVPadding;
     CGFloat rightW = MAX(minButtonWidth, (self.bounds.size.width - rightX - buttonHPadding));
     CGFloat rightH = buttonHeight;
-
+    
     //apply
     _leftButton.frame = CGRectMake(leftX, leftY, leftW, leftH);
     _rightButton.frame = CGRectMake(rightX, rightY, rightW, rightH);
-
+    
 }
 
 
@@ -164,7 +164,7 @@
 -(void)addedToScrollViewController:(RHLayoutScrollViewController*)controller{
     _currentController = controller;
     _numberOfPages = controller.orderedViewControllers.count;
-
+    
 }
 -(void)removedFromScrollViewController:(RHLayoutScrollViewController*)controller{
     _currentController = nil;
@@ -175,7 +175,7 @@
 -(void)scrollViewController:(RHLayoutScrollViewController*)controller orderedViewControllersChanged:(NSArray*)viewControllers{
     //store the number of pages.
     _numberOfPages = controller.orderedViewControllers.count;
-
+    
     [self setNeedsLayout];
 }
 
