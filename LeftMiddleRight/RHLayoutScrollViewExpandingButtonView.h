@@ -53,8 +53,6 @@
 @property (nonatomic, assign) CGFloat startPercentage; //eg 0.50f;
 @property (nonatomic, assign) CGFloat endPercentage; //eg 1.00f;
 
-@property (nonatomic, assign) NSUInteger fullWidthIndex; // section that has full width buttons . eg 
-
 @property (readonly) UIButton *leftButton; //button frames are ignored.
 @property (readonly) UIButton *rightButton;
 

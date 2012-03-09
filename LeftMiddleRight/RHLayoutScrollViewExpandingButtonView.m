@@ -48,7 +48,6 @@
 @synthesize startPercentage=_startPercentage;
 @synthesize endPercentage=_endPercentage;
 
-@synthesize fullWidthIndex=_fullWidthIndex;
 @synthesize leftButton=_leftButton;
 @synthesize rightButton=_rightButton;
 

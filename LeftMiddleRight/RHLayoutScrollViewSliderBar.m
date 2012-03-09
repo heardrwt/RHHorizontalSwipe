@@ -33,6 +33,9 @@
 
 @implementation RHLayoutScrollViewSliderBar
 
+@synthesize buttons=_buttons;
+@synthesize sliderBar=_sliderBar;
+
 #pragma mark - view lifecycle
 
 - (id)initWithFrame:(CGRect)frame {
@@ -59,21 +62,6 @@
 }
 
 #pragma mark - properties
-//@synthesize titles=_titles;
-//
-//-(void)setTitles:(NSArray *)titles{
-//    if (titles != _titles){
-//        [_titles release];
-//        _titles = [titles retain];
-//        
-//        [self updateTitles];
-//        [self setNeedsDisplay];
-//    }
-//}
-//
-//-(void)updateTitles{
-//    
-//}
 
 //update the center of the slider to the specified percentage
 -(void)updateSliderToPosition:(CGFloat)position{
@@ -126,6 +114,13 @@
 }
 
 //controller updating 
+-(UIButton*)configuredButton{
+    UIButton *button = [[[UIButton alloc] init] autorelease];
+    button.backgroundColor = [UIColor clearColor];
+    [button addTarget:self action:@selector(barButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    return button;
+}
+
 -(void)scrollViewController:(RHLayoutScrollViewController*)controller orderedViewControllersChanged:(NSArray*)viewControllers{
     //just grab their titles and use them as our button titles
     [_buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -134,10 +129,8 @@
     
     for (UIViewController *vc in viewControllers) {
         
-        UIButton *button = [[[UIButton alloc] init] autorelease];
-        button.backgroundColor = [UIColor clearColor];
+        UIButton *button = [self configuredButton];
         [button setTitle:[vc title] forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(barButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [(NSMutableArray*)_buttons addObject:button];
         [self addSubview:button];
     }

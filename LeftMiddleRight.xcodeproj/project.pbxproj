@@ -156,7 +156,7 @@
 		138960EF14CE450F00C64EF3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Richard Heard";
 			};
 			buildConfigurationList = 138960F214CE450F00C64EF3 /* Build configuration list for PBXProject "LeftMiddleRight" */;

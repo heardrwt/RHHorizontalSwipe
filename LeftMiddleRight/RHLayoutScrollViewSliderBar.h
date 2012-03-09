@@ -44,4 +44,10 @@
     
 }
 
+@property (readonly, nonatomic) NSArray *buttons;
+@property (readonly, nonatomic) UIImageView *sliderBar;
+
+//style override point
+-(UIButton*)configuredButton;
+
 @end
