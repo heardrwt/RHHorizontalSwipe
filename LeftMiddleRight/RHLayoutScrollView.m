@@ -118,7 +118,9 @@
     if ([_delegate respondsToSelector:@selector(scrollView:updateForPercentagePosition:)]){
         CGFloat position = scrollView.contentOffset.x;
         CGFloat total = scrollView.contentSize.width - scrollView.bounds.size.width;
-        [_delegate scrollView:self updateForPercentagePosition:position/total];
+
+        CGFloat percentage = total ? position/total : 0.0f;
+        [_delegate scrollView:self updateForPercentagePosition:percentage];
     }
     
     //TODO: update based on page index change
