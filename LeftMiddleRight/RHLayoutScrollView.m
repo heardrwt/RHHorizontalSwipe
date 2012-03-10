@@ -118,7 +118,6 @@
     if ([_delegate respondsToSelector:@selector(scrollView:updateForPercentagePosition:)]){
         CGFloat position = scrollView.contentOffset.x;
         CGFloat total = scrollView.contentSize.width - scrollView.bounds.size.width;
-
         CGFloat percentage = total ? position/total : 0.0f;
         [_delegate scrollView:self updateForPercentagePosition:percentage];
     }
@@ -127,9 +126,48 @@
     
 }
 
--(BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
-    //fwd to the current view
-    return NO;
+#pragma mark - scroll to top 
+//scroll the currently active views first scrollview with scrollToTop=YES to the top. 
+//we have to use this instead of the default system provided status bar behaviour if we have more than one view hosting a scrollToTop=YES scroll view.
+-(void)scrollCurrentViewToTop{
+    //forward down to first scrollview we find under the current view
+    UIView *currentView = [_orderedViews objectAtIndex:[self currentIndex]];
+    UIScrollView *fwdScrollView = [RHLayoutScrollView firstScrollsToTopViewForView:currentView];
+    //scroll to top
+    [fwdScrollView setContentOffset:CGPointMake(fwdScrollView.contentOffset.x, 0.0f) animated:YES];
+}
+
+#pragma mark - scroll to top helper methods
+
++(NSArray*)scrollViewsForView:(UIView*)view{
+    NSMutableArray *scrollViews = [NSMutableArray array];
+    
+    //first check self
+    if ([view isKindOfClass:[UIScrollView class]]) [scrollViews addObject:view];
+    
+    //now recurse for subviews
+    for (UIView *subView in view.subviews) {
+        [scrollViews addObjectsFromArray:[RHLayoutScrollView scrollViewsForView:subView]];
+    }
+    
+    return scrollViews;
+}
+
++(NSArray*)scrollsToTopViewsForView:(UIView*)view{
+    NSArray *views = [RHLayoutScrollView scrollViewsForView:view];
+    NSIndexSet *set = [views indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return [obj scrollsToTop];
+    }];
+    
+    return [views objectsAtIndexes:set];
+}
+
++(UIScrollView*)firstScrollsToTopViewForView:(UIView*)view{
+    NSArray *topViews = [RHLayoutScrollView scrollsToTopViewsForView:view];
+    if (topViews.count > 0){
+        return [topViews objectAtIndex:0];
+    }
+    return nil;
 }
 
 @end

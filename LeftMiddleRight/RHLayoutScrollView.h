@@ -54,4 +54,13 @@
 @property (assign, nonatomic) NSUInteger currentIndex;
 -(void)setCurrentIndex:(NSUInteger)currentIndex animated:(BOOL)animated;
 
+//scroll to top
+-(void)scrollCurrentViewToTop; //scroll the currently active views first scrollview with scrollToTop=YES to the top.
+                               //we have to use this instead of the default system provided status bar behaviour if we have more than one view hosting a scrollToTop=YES scroll view.
+
+//scroll to top helper methods
++(NSArray*)scrollViewsForView:(UIView*)view;
++(NSArray*)scrollsToTopViewsForView:(UIView*)view;
++(UIScrollView*)firstScrollsToTopViewForView:(UIView*)view;
+
 @end
