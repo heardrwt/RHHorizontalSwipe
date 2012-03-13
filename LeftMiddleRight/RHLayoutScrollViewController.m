@@ -145,11 +145,13 @@
             for (UIViewController *vc in _orderedViewControllers) {
                 [vc willMoveToParentViewController:nil];
                 [vc removeFromParentViewController];
-                
-                //call the will / did disapear methods (only if we are currently loaded)
-                if(_willFlag)[vc viewWillDisappear:NO];
-                if(_didFlag)[vc viewDidDisappear:NO];
             }
+        }
+        
+        //call the will / did disapear methods (only if we are currently loaded)
+        for (UIViewController *vc in _orderedViewControllers) {
+            if(_willFlag)[vc viewWillDisappear:NO];
+            if(_didFlag)[vc viewDidDisappear:NO];
         }
         
         //stash
@@ -162,12 +164,14 @@
             for (UIViewController *vc in _orderedViewControllers) {
                 [self addChildViewController:vc];
                 [vc didMoveToParentViewController:self];
-                
-                //call the will / did appear methods (only if we are currently loaded)
-                if (_willFlag)[vc viewWillAppear:NO];
-                if (_didFlag)[vc viewDidAppear:NO];
             }
         }        
+        
+        //call the will / did appear methods (only if we are currently loaded)
+        for (UIViewController *vc in _orderedViewControllers) {
+            if (_willFlag)[vc viewWillAppear:NO];
+            if (_didFlag)[vc viewDidAppear:NO];
+        }
         
         //redisplay
         [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
