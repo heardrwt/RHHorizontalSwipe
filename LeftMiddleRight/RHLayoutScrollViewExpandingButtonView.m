@@ -157,6 +157,13 @@
 }
 
 
+//backing view should be transparent to touches
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *hit = [super hitTest:point withEvent:event];
+    if (hit == self) return nil; // don't register touches in our view, only our subviews.
+    return hit;
+}
+
 
 #pragma mark - RHLayoutScrollViewControllerOverlayViewProtocol
 
