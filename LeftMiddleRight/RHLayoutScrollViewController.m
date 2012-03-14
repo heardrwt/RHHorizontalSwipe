@@ -143,7 +143,7 @@
             [UIViewController instancesRespondToSelector:@selector(removeFromParentViewController)]){
             for (UIViewController *vc in _orderedViewControllers) {
                 [vc willMoveToParentViewController:nil];
-                [vc removeFromParentViewController];
+                [vc removeFromParentViewController];                
             }
         }
         
@@ -154,6 +154,7 @@
         }
         
         //stash
+        NSArray *oldOrderedViewControllers = [_orderedViewControllers retain];
         [_orderedViewControllers release];
         _orderedViewControllers = [orderedViewControllers retain];
         
@@ -181,14 +182,15 @@
                 [overlayView scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
             }
             
-            if ([overlayView respondsToSelector:@selector(scrollViewController:orderedViewControllersChanged:)]){
-                [overlayView scrollViewController:self orderedViewControllersChanged:_orderedViewControllers];
+            if ([overlayView respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
+                [overlayView scrollViewController:self orderedViewControllersChangedFrom:oldOrderedViewControllers to:_orderedViewControllers];
             }
             
         }
         
         [self registerNavigationControllerDelegates]; //re-set delegates
         
+        [oldOrderedViewControllers release];
     }
 }
 
@@ -338,8 +340,12 @@
         [view addedToScrollViewController:self];
     }
     
-    if ([view respondsToSelector:@selector(scrollViewController:orderedViewControllersChanged:)]){
-        [view scrollViewController:self orderedViewControllersChanged:_orderedViewControllers];
+    if ([view respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
+        [view scrollViewController:self orderedViewControllersChangedFrom:nil to:_orderedViewControllers];
+    }    
+    
+    if ([view respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
+        [view scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
     }    
     
     

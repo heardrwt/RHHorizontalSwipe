@@ -33,6 +33,8 @@
 
 @implementation RHLayoutScrollViewSliderBar
 
+static void * _kvoContext;
+
 @synthesize buttons=_buttons;
 @synthesize sliderBar=_sliderBar;
 
@@ -56,7 +58,20 @@
 #define RN(x) [x release]; x = nil;
 
 - (void)dealloc {
+    
+    //remove kvo observers
+    for (UIViewController *vc in _currentController.orderedViewControllers) {
+        if ([NSObject instancesRespondToSelector:@selector(removeObserver:forKeyPath:context:)]){
+            [vc removeObserver:self forKeyPath:@"title" context:&_kvoContext];
+        } else {
+            [vc removeObserver:self forKeyPath:@"title"];
+        }
+    }
+    
+    _currentController = nil;
+    
     RN(_sliderBar);
+    RN(_buttons)
     
     [super dealloc];
 }
@@ -110,6 +125,15 @@
     _currentController = controller;
 }
 -(void)removedFromScrollViewController:(RHLayoutScrollViewController*)controller{
+    //remove kvo observers
+    for (UIViewController *vc in _currentController.orderedViewControllers) {
+        if ([NSObject instancesRespondToSelector:@selector(removeObserver:forKeyPath:context:)]){
+            [vc removeObserver:self forKeyPath:@"title" context:&_kvoContext];
+        } else {
+            [vc removeObserver:self forKeyPath:@"title"];
+        }
+    }
+    
     _currentController = nil;
 }
 
@@ -121,13 +145,25 @@
     return button;
 }
 
--(void)scrollViewController:(RHLayoutScrollViewController*)controller orderedViewControllersChanged:(NSArray*)viewControllers{
+
+//controller updating 
+-(void)scrollViewController:(RHLayoutScrollViewController *)controller orderedViewControllersChangedFrom:(NSArray *)oldViewControllers to:(NSArray *)newViewControllers{
     //just grab their titles and use them as our button titles
     [_buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_buttons release];
     _buttons = [[NSMutableArray array] retain];
     
-    for (UIViewController *vc in viewControllers) {
+    //remove old observers
+    for (UIViewController *vc in oldViewControllers) {
+        if ([NSObject instancesRespondToSelector:@selector(removeObserver:forKeyPath:context:)]){
+            [vc removeObserver:self forKeyPath:@"title" context:&_kvoContext];
+        } else {
+            [vc removeObserver:self forKeyPath:@"title"];
+        }
+    }
+    
+    for (UIViewController *vc in newViewControllers) {
+        [vc addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:&_kvoContext];
         
         UIButton *button = [self configuredButton];
         [button setTitle:[vc title] forState:UIControlStateNormal];
@@ -142,6 +178,25 @@
 //positional updating
 -(void)scrollViewController:(RHLayoutScrollViewController*)controller updateForPercentagePosition:(CGFloat)position{
     [self updateSliderToPosition:position];
+}
+
+//kvo observing
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    //controller titles
+    if ([keyPath isEqualToString:@"title"] && context == &_kvoContext){
+        
+        //find index of button to update
+        NSUInteger index = [_currentController.orderedViewControllers indexOfObject:object];
+        
+        if (index != NSNotFound && [_buttons count] > index){
+            //update the buttons title
+            NSString *title = [object title];            
+            [[_buttons objectAtIndex:index] setTitle:title forState:UIControlStateNormal];
+        }
+        
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 @end

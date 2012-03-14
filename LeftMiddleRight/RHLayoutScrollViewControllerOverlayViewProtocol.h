@@ -46,7 +46,7 @@
 
 
 //view controllers changed
--(void)scrollViewController:(RHLayoutScrollViewController*)controller orderedViewControllersChanged:(NSArray*)viewControllers;
+-(void)scrollViewController:(RHLayoutScrollViewController*)controller orderedViewControllersChangedFrom:(NSArray*)oldViewControllers to:(NSArray*)newViewControllers;
 
 //positional updating
 -(void)scrollViewController:(RHLayoutScrollViewController*)controller updateNumberOfPages:(NSInteger)numberOfPages;
