@@ -92,16 +92,16 @@ static void * _kvoContext;
     
     //set the size for the slider bar
     CGFloat sliderW = [_buttons count] ? floor(self.bounds.size.width / [_buttons count]) : 0.0f;
-    CGFloat sliderH = self.bounds.size.height;
+    CGFloat sliderH = [self sliderHeight];
     CGFloat sliderX = _sliderBar.frame.origin.x;//current
-    CGFloat sliderY = _sliderBar.frame.origin.y;//current
+    CGFloat sliderY = self.bounds.size.height - sliderH;
     _sliderBar.frame =  CGRectMake(sliderX, sliderY, sliderW, sliderH);
     
     //layout buttons
     CGFloat buttonW = sliderW;
-    CGFloat buttonH = sliderH;
+    CGFloat buttonH = [self buttonHeight];
     CGFloat buttonX = 0.0f;
-    CGFloat buttonY = 0.0f;
+    CGFloat buttonY = self.bounds.size.height - buttonH;
     
     for (UIButton *button in _buttons) {
         button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
@@ -137,7 +137,13 @@ static void * _kvoContext;
     _currentController = nil;
 }
 
-//controller updating 
+//layout overrides
+-(CGFloat)sliderHeight{
+    return self.bounds.size.height;
+}
+-(CGFloat)buttonHeight{
+    return self.bounds.size.height;
+}
 -(UIButton*)configuredButton{
     UIButton *button = [[[UIButton alloc] init] autorelease];
     button.backgroundColor = [UIColor clearColor];

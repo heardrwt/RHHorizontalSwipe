@@ -47,7 +47,11 @@
 @property (readonly, nonatomic) NSArray *buttons;
 @property (readonly, nonatomic) UIImageView *sliderBar;
 
+-(void)updateSliderToPosition:(CGFloat)position;
+
 //style override point
 -(UIButton*)configuredButton;
+-(CGFloat)sliderHeight; //default is self.height
+-(CGFloat)buttonHeight; //default is self.height
 
 @end
