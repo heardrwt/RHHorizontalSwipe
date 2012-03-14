@@ -69,8 +69,16 @@
             [_scrollView addSubview:view];
         }
         
-        [self layoutIfNeeded];
+        [self setNeedsLayout];
     }
+}
+
+-(void)setFrame:(CGRect)frame{
+    //store the current index before changing size, force a re-layout and then move to the indexes new position
+    NSInteger currentIndex = [self currentIndex];
+    [super setFrame:frame];
+    [self layoutIfNeeded];
+    [self setCurrentIndex:currentIndex animated:NO];
 }
 
 -(void)layoutSubviews{

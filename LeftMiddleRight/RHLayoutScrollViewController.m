@@ -44,7 +44,6 @@
 
 @implementation RHLayoutScrollViewController {
     NSUInteger _unloadedCurrentIndex;
-    NSUInteger _preRotationIndex;
     
     NSArray *_orderedViewControllers;
     
@@ -406,9 +405,6 @@
         }
     }
     
-    //store the current index so we can animate to it during rotation
-    _preRotationIndex = _layoutScrollView.currentIndex;
-    
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
 
@@ -419,9 +415,6 @@
             [(id)vc willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
         } 
     }    
-    
-    //handle view layout rotations 
-    [_layoutScrollView setCurrentIndex:_preRotationIndex animated:NO];
     
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
 }
