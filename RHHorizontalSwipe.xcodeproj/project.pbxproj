@@ -96,7 +96,6 @@
 		138960ED14CE450F00C64EF3 = {
 			isa = PBXGroup;
 			children = (
-				13F6C793162753640011E859 /* Default-568h@2x.png */,
 				1389610214CE450F00C64EF3 /* LeftMiddleRight */,
 				13ED7FB1162741C00027F68E /* RHHorizontalSwipe */,
 				138960FB14CE450F00C64EF3 /* Frameworks */,
@@ -140,6 +139,7 @@
 		1389610314CE450F00C64EF3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				13F6C793162753640011E859 /* Default-568h@2x.png */,
 				1389610414CE450F00C64EF3 /* LeftMiddleRight-Info.plist */,
 				1389610514CE450F00C64EF3 /* InfoPlist.strings */,
 				1389610814CE450F00C64EF3 /* main.m */,
