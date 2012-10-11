@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'RHHorizontalSwipe' target in the 'RHHorizontalSwipe' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

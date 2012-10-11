@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		137AF8C9150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m */; };
 		138960FD14CE450F00C64EF3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 138960FC14CE450F00C64EF3 /* UIKit.framework */; };
 		138960FF14CE450F00C64EF3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 138960FE14CE450F00C64EF3 /* Foundation.framework */; };
 		1389610114CE450F00C64EF3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1389610014CE450F00C64EF3 /* CoreGraphics.framework */; };
@@ -16,15 +15,32 @@
 		1389610D14CE450F00C64EF3 /* RHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1389610C14CE450F00C64EF3 /* RHAppDelegate.m */; };
 		1389611014CE450F00C64EF3 /* RHViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1389610F14CE450F00C64EF3 /* RHViewController.m */; };
 		1389611E14CE4EAD00C64EF3 /* RHTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1389611D14CE4EAD00C64EF3 /* RHTableView.m */; };
-		1389612114CF427A00C64EF3 /* RHLayoutScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1389612014CF427A00C64EF3 /* RHLayoutScrollViewController.m */; };
-		1389612414CF529A00C64EF3 /* RHLayoutScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1389612314CF529A00C64EF3 /* RHLayoutScrollView.m */; };
-		13B63DE914F467A00064DF06 /* RHLayoutScrollViewSliderBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B63DE814F467A00064DF06 /* RHLayoutScrollViewSliderBar.m */; };
+		13ED7FB0162741C00027F68E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 138960FE14CE450F00C64EF3 /* Foundation.framework */; };
+		13ED7FB7162741C00027F68E /* RHHorizontalSwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED7FB6162741C00027F68E /* RHHorizontalSwipeView.m */; };
+		13ED7FC21627421A0027F68E /* RHHorizontalSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED7FBC1627421A0027F68E /* RHHorizontalSwipeViewController.m */; };
+		13ED7FC31627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED7FBF1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.m */; };
+		13ED7FC41627421A0027F68E /* RHHorizontalSwipeViewSliderBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 13ED7FC11627421A0027F68E /* RHHorizontalSwipeViewSliderBar.m */; };
+		13ED7FC7162742520027F68E /* libRHHorizontalSwipe.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13ED7FAF162741C00027F68E /* libRHHorizontalSwipe.a */; };
+		13ED7FCA162744C00027F68E /* RHHorizontalSwipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FC8162742B00027F68E /* RHHorizontalSwipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13ED7FCB162744C00027F68E /* RHHorizontalSwipeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FB4162741C00027F68E /* RHHorizontalSwipeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13ED7FCC162744C00027F68E /* RHHorizontalSwipeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FBB1627421A0027F68E /* RHHorizontalSwipeViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13ED7FCD162744C00027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13ED7FCE162744C00027F68E /* RHHorizontalSwipeViewExpandingButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FBE1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13ED7FCF162744C00027F68E /* RHHorizontalSwipeViewSliderBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FC01627421A0027F68E /* RHHorizontalSwipeViewSliderBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13F6C794162753640011E859 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13F6C793162753640011E859 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		13ED7FC5162742490027F68E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 138960EF14CE450F00C64EF3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13ED7FAE162741C00027F68E;
+			remoteInfo = RHLayoutScrollView;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		137AF8C7150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewExpandingButtonView.h; sourceTree = "<group>"; };
-		137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollViewExpandingButtonView.m; sourceTree = "<group>"; };
-		1385CDA114F4429B00B77297 /* RHLayoutScrollViewControllerOverlayViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewControllerOverlayViewProtocol.h; sourceTree = "<group>"; };
 		138960F814CE450F00C64EF3 /* LeftMiddleRight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LeftMiddleRight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		138960FC14CE450F00C64EF3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		138960FE14CE450F00C64EF3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -39,12 +55,19 @@
 		1389610F14CE450F00C64EF3 /* RHViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHViewController.m; sourceTree = "<group>"; };
 		1389611C14CE4EAC00C64EF3 /* RHTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHTableView.h; sourceTree = "<group>"; };
 		1389611D14CE4EAD00C64EF3 /* RHTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHTableView.m; sourceTree = "<group>"; };
-		1389611F14CF427A00C64EF3 /* RHLayoutScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewController.h; sourceTree = "<group>"; };
-		1389612014CF427A00C64EF3 /* RHLayoutScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollViewController.m; sourceTree = "<group>"; };
-		1389612214CF529900C64EF3 /* RHLayoutScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollView.h; sourceTree = "<group>"; };
-		1389612314CF529A00C64EF3 /* RHLayoutScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollView.m; sourceTree = "<group>"; };
-		13B63DE714F467A00064DF06 /* RHLayoutScrollViewSliderBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHLayoutScrollViewSliderBar.h; sourceTree = "<group>"; };
-		13B63DE814F467A00064DF06 /* RHLayoutScrollViewSliderBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHLayoutScrollViewSliderBar.m; sourceTree = "<group>"; };
+		13ED7FAF162741C00027F68E /* libRHHorizontalSwipe.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRHHorizontalSwipe.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		13ED7FB3162741C00027F68E /* RHHorizontalSwipe-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RHHorizontalSwipe-Prefix.pch"; sourceTree = "<group>"; };
+		13ED7FB4162741C00027F68E /* RHHorizontalSwipeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeView.h; sourceTree = "<group>"; };
+		13ED7FB6162741C00027F68E /* RHHorizontalSwipeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHHorizontalSwipeView.m; sourceTree = "<group>"; };
+		13ED7FBB1627421A0027F68E /* RHHorizontalSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewController.h; sourceTree = "<group>"; };
+		13ED7FBC1627421A0027F68E /* RHHorizontalSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHHorizontalSwipeViewController.m; sourceTree = "<group>"; };
+		13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewControllerOverlayViewProtocol.h; sourceTree = "<group>"; };
+		13ED7FBE1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewExpandingButtonView.h; sourceTree = "<group>"; };
+		13ED7FBF1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHHorizontalSwipeViewExpandingButtonView.m; sourceTree = "<group>"; };
+		13ED7FC01627421A0027F68E /* RHHorizontalSwipeViewSliderBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewSliderBar.h; sourceTree = "<group>"; };
+		13ED7FC11627421A0027F68E /* RHHorizontalSwipeViewSliderBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHHorizontalSwipeViewSliderBar.m; sourceTree = "<group>"; };
+		13ED7FC8162742B00027F68E /* RHHorizontalSwipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipe.h; sourceTree = "<group>"; };
+		13F6C793162753640011E859 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,9 +75,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13ED7FC7162742520027F68E /* libRHHorizontalSwipe.a in Frameworks */,
 				138960FD14CE450F00C64EF3 /* UIKit.framework in Frameworks */,
 				138960FF14CE450F00C64EF3 /* Foundation.framework in Frameworks */,
 				1389610114CE450F00C64EF3 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13ED7FAC162741C00027F68E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13ED7FB0162741C00027F68E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,7 +96,9 @@
 		138960ED14CE450F00C64EF3 = {
 			isa = PBXGroup;
 			children = (
+				13F6C793162753640011E859 /* Default-568h@2x.png */,
 				1389610214CE450F00C64EF3 /* LeftMiddleRight */,
+				13ED7FB1162741C00027F68E /* RHHorizontalSwipe */,
 				138960FB14CE450F00C64EF3 /* Frameworks */,
 				138960F914CE450F00C64EF3 /* Products */,
 			);
@@ -74,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				138960F814CE450F00C64EF3 /* LeftMiddleRight.app */,
+				13ED7FAF162741C00027F68E /* libRHHorizontalSwipe.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,7 +128,6 @@
 			children = (
 				1389610B14CE450F00C64EF3 /* RHAppDelegate.h */,
 				1389610C14CE450F00C64EF3 /* RHAppDelegate.m */,
-				1389612914CFBE4D00C64EF3 /* LayoutScrollViewController */,
 				1389610E14CE450F00C64EF3 /* RHViewController.h */,
 				1389610F14CE450F00C64EF3 /* RHViewController.m */,
 				1389611C14CE4EAC00C64EF3 /* RHTableView.h */,
@@ -114,23 +148,49 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		1389612914CFBE4D00C64EF3 /* LayoutScrollViewController */ = {
+		13ED7FB1162741C00027F68E /* RHHorizontalSwipe */ = {
 			isa = PBXGroup;
 			children = (
-				1389612214CF529900C64EF3 /* RHLayoutScrollView.h */,
-				1389612314CF529A00C64EF3 /* RHLayoutScrollView.m */,
-				1389611F14CF427A00C64EF3 /* RHLayoutScrollViewController.h */,
-				1389612014CF427A00C64EF3 /* RHLayoutScrollViewController.m */,
-				1385CDA114F4429B00B77297 /* RHLayoutScrollViewControllerOverlayViewProtocol.h */,
-				13B63DE714F467A00064DF06 /* RHLayoutScrollViewSliderBar.h */,
-				13B63DE814F467A00064DF06 /* RHLayoutScrollViewSliderBar.m */,
-				137AF8C7150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.h */,
-				137AF8C8150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m */,
+				13ED7FC8162742B00027F68E /* RHHorizontalSwipe.h */,
+				13ED7FB4162741C00027F68E /* RHHorizontalSwipeView.h */,
+				13ED7FB6162741C00027F68E /* RHHorizontalSwipeView.m */,
+				13ED7FBB1627421A0027F68E /* RHHorizontalSwipeViewController.h */,
+				13ED7FBC1627421A0027F68E /* RHHorizontalSwipeViewController.m */,
+				13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h */,
+				13ED7FBE1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.h */,
+				13ED7FBF1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.m */,
+				13ED7FC01627421A0027F68E /* RHHorizontalSwipeViewSliderBar.h */,
+				13ED7FC11627421A0027F68E /* RHHorizontalSwipeViewSliderBar.m */,
+				13ED7FB2162741C00027F68E /* Supporting Files */,
 			);
-			name = LayoutScrollViewController;
+			path = RHHorizontalSwipe;
+			sourceTree = "<group>";
+		};
+		13ED7FB2162741C00027F68E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				13ED7FB3162741C00027F68E /* RHHorizontalSwipe-Prefix.pch */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		13ED7FC9162743480027F68E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13ED7FCA162744C00027F68E /* RHHorizontalSwipe.h in Headers */,
+				13ED7FCB162744C00027F68E /* RHHorizontalSwipeView.h in Headers */,
+				13ED7FCC162744C00027F68E /* RHHorizontalSwipeViewController.h in Headers */,
+				13ED7FCD162744C00027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h in Headers */,
+				13ED7FCE162744C00027F68E /* RHHorizontalSwipeViewExpandingButtonView.h in Headers */,
+				13ED7FCF162744C00027F68E /* RHHorizontalSwipeViewSliderBar.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		138960F714CE450F00C64EF3 /* LeftMiddleRight */ = {
@@ -144,11 +204,29 @@
 			buildRules = (
 			);
 			dependencies = (
+				13ED7FC6162742490027F68E /* PBXTargetDependency */,
 			);
 			name = LeftMiddleRight;
 			productName = LeftMiddleRight;
 			productReference = 138960F814CE450F00C64EF3 /* LeftMiddleRight.app */;
 			productType = "com.apple.product-type.application";
+		};
+		13ED7FAE162741C00027F68E /* RHHorizontalSwipe */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13ED7FB8162741C00027F68E /* Build configuration list for PBXNativeTarget "RHHorizontalSwipe" */;
+			buildPhases = (
+				13ED7FAB162741C00027F68E /* Sources */,
+				13ED7FAC162741C00027F68E /* Frameworks */,
+				13ED7FC9162743480027F68E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RHHorizontalSwipe;
+			productName = RHLayoutScrollView;
+			productReference = 13ED7FAF162741C00027F68E /* libRHHorizontalSwipe.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -159,7 +237,7 @@
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Richard Heard";
 			};
-			buildConfigurationList = 138960F214CE450F00C64EF3 /* Build configuration list for PBXProject "LeftMiddleRight" */;
+			buildConfigurationList = 138960F214CE450F00C64EF3 /* Build configuration list for PBXProject "RHHorizontalSwipe" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -171,6 +249,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				13ED7FAE162741C00027F68E /* RHHorizontalSwipe */,
 				138960F714CE450F00C64EF3 /* LeftMiddleRight */,
 			);
 		};
@@ -182,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1389610714CE450F00C64EF3 /* InfoPlist.strings in Resources */,
+				13F6C794162753640011E859 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,14 +276,29 @@
 				1389610D14CE450F00C64EF3 /* RHAppDelegate.m in Sources */,
 				1389611014CE450F00C64EF3 /* RHViewController.m in Sources */,
 				1389611E14CE4EAD00C64EF3 /* RHTableView.m in Sources */,
-				1389612114CF427A00C64EF3 /* RHLayoutScrollViewController.m in Sources */,
-				1389612414CF529A00C64EF3 /* RHLayoutScrollView.m in Sources */,
-				13B63DE914F467A00064DF06 /* RHLayoutScrollViewSliderBar.m in Sources */,
-				137AF8C9150544A200044DF1 /* RHLayoutScrollViewExpandingButtonView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13ED7FAB162741C00027F68E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13ED7FB7162741C00027F68E /* RHHorizontalSwipeView.m in Sources */,
+				13ED7FC21627421A0027F68E /* RHHorizontalSwipeViewController.m in Sources */,
+				13ED7FC31627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.m in Sources */,
+				13ED7FC41627421A0027F68E /* RHHorizontalSwipeViewSliderBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		13ED7FC6162742490027F68E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13ED7FAE162741C00027F68E /* RHHorizontalSwipe */;
+			targetProxy = 13ED7FC5162742490027F68E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1389610514CE450F00C64EF3 /* InfoPlist.strings */ = {
@@ -267,6 +362,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeftMiddleRight/LeftMiddleRight-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/include/**";
 				INFOPLIST_FILE = "LeftMiddleRight/LeftMiddleRight-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -279,6 +375,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LeftMiddleRight/LeftMiddleRight-Prefix.pch";
+				HEADER_SEARCH_PATHS = "$(CONFIGURATION_BUILD_DIR)/include/**";
 				INFOPLIST_FILE = "LeftMiddleRight/LeftMiddleRight-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -286,10 +383,50 @@
 			};
 			name = Release;
 		};
+		13ED7FB9162741C00027F68E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DSTROOT = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RHHorizontalSwipe/RHHorizontalSwipe-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRIVATE_HEADERS_FOLDER_PATH = "$(PUBLIC_HEADERS_FOLDER_PATH)/Private";
+				PRODUCT_NAME = RHHorizontalSwipe;
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		13ED7FBA162741C00027F68E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DSTROOT = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "RHHorizontalSwipe/RHHorizontalSwipe-Prefix.pch";
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRIVATE_HEADERS_FOLDER_PATH = "$(PUBLIC_HEADERS_FOLDER_PATH)/Private";
+				PRODUCT_NAME = RHHorizontalSwipe;
+				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		138960F214CE450F00C64EF3 /* Build configuration list for PBXProject "LeftMiddleRight" */ = {
+		138960F214CE450F00C64EF3 /* Build configuration list for PBXProject "RHHorizontalSwipe" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1389611714CE450F00C64EF3 /* Debug */,
@@ -303,6 +440,15 @@
 			buildConfigurations = (
 				1389611A14CE450F00C64EF3 /* Debug */,
 				1389611B14CE450F00C64EF3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13ED7FB8162741C00027F68E /* Build configuration list for PBXNativeTarget "RHHorizontalSwipe" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13ED7FB9162741C00027F68E /* Debug */,
+				13ED7FBA162741C00027F68E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

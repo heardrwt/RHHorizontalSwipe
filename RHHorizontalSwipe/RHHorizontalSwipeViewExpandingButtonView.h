@@ -1,8 +1,8 @@
 //
-//  RHLayoutScrollViewControllerOverlayViewProtocol.h
-//  LeftMiddleRight
+//  RHHorizontalSwipeViewExpandingButtonView.h
+//  RHHorizontalSwipe
 //
-//  Created by Richard Heard on 21/02/12.
+//  Created by Richard Heard on 5/03/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -28,29 +28,37 @@
 //  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import <Foundation/Foundation.h>
+//overlay view that provides a single button that grows and shrinks into 2 separate buttons based on a percentage change in the containing scroll view.
 
-@class RHLayoutScrollViewController;
+#import <UIKit/UIKit.h>
 
-//layout scroll view controller overlay view protocol
-@protocol RHLayoutScrollViewControllerOverlayViewProtocol <NSObject>
+#import "RHHorizontalSwipeViewControllerOverlayViewProtocol.h"
+@class RHHorizontalSwipeViewController;
 
-@optional
-//visibility
--(BOOL)alwaysVisible; //defaults to no
+@interface RHHorizontalSwipeViewExpandingButtonView : UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> {
+    
+    RHHorizontalSwipeViewController *_currentController; //weak
+    NSUInteger _fullWidthIndex;
+    
+    NSUInteger _numberOfPages;
+    
+    UIButton *_leftButton;
+    UIButton *_rightButton;
+    
+}
 
 
-//added/removed to/from scrollviewcontroller
--(void)addedToScrollViewController:(RHLayoutScrollViewController*)controller;
--(void)removedFromScrollViewController:(RHLayoutScrollViewController*)controller; //good place to nil out any weak refs to the current controller
+//as a user, you need to specify some point where we are full width vs minimum width
 
+@property (nonatomic, assign) CGFloat startPercentage; //eg 0.50f;
+@property (nonatomic, assign) CGFloat endPercentage; //eg 1.00f;
 
-//view controllers changed
--(void)scrollViewController:(RHLayoutScrollViewController*)controller orderedViewControllersChangedFrom:(NSArray*)oldViewControllers to:(NSArray*)newViewControllers;
+@property (readonly) UIButton *leftButton; //button frames are ignored.
+@property (readonly) UIButton *rightButton;
 
-//positional updating
--(void)scrollViewController:(RHLayoutScrollViewController*)controller updateNumberOfPages:(NSInteger)numberOfPages;
--(void)scrollViewController:(RHLayoutScrollViewController*)controller updateCurrentPage:(NSInteger)page;
--(void)scrollViewController:(RHLayoutScrollViewController*)controller updateForPercentagePosition:(CGFloat)position;
+//small buttons are same width as views height, large buttons are width of view / 2
+
+-(void)updateForPercentagePosition:(CGFloat)position;
+-(void)applyAnimation:(CGFloat)prog;
 
 @end

@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class RHLayoutScrollViewController;
+@class RHHorizontalSwipeViewController;
 
 @interface RHAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) RHLayoutScrollViewController *layoutScrollViewController; //view controller that forwards all rotations etc. and hosts our controllers views
+@property (strong, nonatomic) RHHorizontalSwipeViewController *layoutScrollViewController; //view controller that forwards all rotations etc. and hosts our controllers views
 
 
 @end

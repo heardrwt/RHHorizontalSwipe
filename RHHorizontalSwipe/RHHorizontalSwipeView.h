@@ -1,8 +1,8 @@
 //
-//  RHLayoutScrollViewExpandingButtonView.h
-//  LeftMiddleRight
+//  RHHorizontalSwipeView.h
+//  RHHorizontalSwipe
 //
-//  Created by Richard Heard on 5/03/12.
+//  Created by Richard Heard on 24/01/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -28,37 +28,39 @@
 //  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-//overlay view that provides a single button that grows and shrinks into 2 separate buttons based on a percentage change in the containing scroll view.
-
 #import <UIKit/UIKit.h>
 
-#import "RHLayoutScrollViewControllerOverlayViewProtocol.h"
-@class RHLayoutScrollViewController;
+@class RHHorizontalSwipeView;
+@protocol RHHorizontalSwipeViewDelegate <NSObject>
 
-@interface RHLayoutScrollViewExpandingButtonView : UIView <RHLayoutScrollViewControllerOverlayViewProtocol> {
+-(void)scrollView:(RHHorizontalSwipeView*)scrollView updateForPercentagePosition:(CGFloat)position;
+
+@end
+
+@interface RHHorizontalSwipeView : UIView <UIScrollViewDelegate>{
+    id <RHHorizontalSwipeViewDelegate> _delegate; //weak
     
-    RHLayoutScrollViewController *_currentController; //weak
-    NSUInteger _fullWidthIndex;
-    
-    NSUInteger _numberOfPages;
-    
-    UIButton *_leftButton;
-    UIButton *_rightButton;
-    
+    UIScrollView *_scrollView;
+    NSArray *_orderedViews;
 }
+//delegate
+@property (assign, nonatomic) id <RHHorizontalSwipeViewDelegate> delegate;
 
+//views
+@property (readonly, nonatomic) UIScrollView *scrollView;
+@property (retain, nonatomic) NSArray *orderedViews;
 
-//as a user, you need to specify some point where we are full width vs minimum width
+//index
+@property (assign, nonatomic) NSUInteger currentIndex;
+-(void)setCurrentIndex:(NSUInteger)currentIndex animated:(BOOL)animated;
 
-@property (nonatomic, assign) CGFloat startPercentage; //eg 0.50f;
-@property (nonatomic, assign) CGFloat endPercentage; //eg 1.00f;
+//scroll to top
+-(void)scrollCurrentViewToTop; //scroll the currently active views first scrollview with scrollToTop=YES to the top.
+                               //we have to use this instead of the default system provided status bar behaviour if we have more than one view hosting a scrollToTop=YES scroll view.
 
-@property (readonly) UIButton *leftButton; //button frames are ignored.
-@property (readonly) UIButton *rightButton;
-
-//small buttons are same width as views height, large buttons are width of view / 2
-
--(void)updateForPercentagePosition:(CGFloat)position;
--(void)applyAnimation:(CGFloat)prog;
+//scroll to top helper methods
++(NSArray*)scrollViewsForView:(UIView*)view;
++(NSArray*)scrollsToTopViewsForView:(UIView*)view;
++(UIScrollView*)firstScrollsToTopViewForView:(UIView*)view;
 
 @end

@@ -1,6 +1,6 @@
 //
-//  RHLayoutScrollViewController.m
-//  LeftMiddleRight
+//  RHHorizontalSwipeViewController.m
+//  RHHorizontalSwipe
 //
 //  Created by Richard Heard on 24/01/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
@@ -28,26 +28,26 @@
 //  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "RHLayoutScrollViewController.h"
+#import "RHHorizontalSwipeViewController.h"
 
-#import "RHLayoutScrollView.h"
+#import "RHHorizontalSwipeView.h"
 
 #define kRHScrollViewControllerShowHideOverlayAnimationDuration 0.3f
 
 //private
-@interface RHLayoutScrollViewController ()
+@interface RHHorizontalSwipeViewController ()
 
 -(void)registerNavigationControllerDelegates;
 -(void)deregisterNavigationControllerDelegates;
 
 @end
 
-@implementation RHLayoutScrollViewController {
+@implementation RHHorizontalSwipeViewController {
     NSUInteger _unloadedCurrentIndex;
     
     NSArray *_orderedViewControllers;
     
-    RHLayoutScrollView *_layoutScrollView;
+    RHHorizontalSwipeView *_layoutScrollView;
     
     NSMutableSet *_overlayViews;
     BOOL _overlayViewsHidden;
@@ -78,7 +78,7 @@
 - (void)dealloc {
     
     //notify overlay views of our destruction
-    for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+    for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
         if ([overlayView respondsToSelector:@selector(removedFromScrollViewController:)]){
             [overlayView removedFromScrollViewController:self];
         }
@@ -177,7 +177,7 @@
         [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
         
         //notify overlay views
-        for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+        for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
             if ([overlayView respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
                 [overlayView scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
             }
@@ -235,7 +235,7 @@
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
     
     //add our scrollview
-    _layoutScrollView = [[RHLayoutScrollView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    _layoutScrollView = [[RHHorizontalSwipeView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     _layoutScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [_layoutScrollView setBackgroundColor:[UIColor lightGrayColor]];
     _layoutScrollView.delegate = self;
@@ -246,7 +246,7 @@
     [self.view addSubview:_layoutScrollView];
     
     //add our overlay views, respecting the hidden flag
-    for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+    for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
         if (!( [overlayView respondsToSelector:@selector(alwaysVisible)] && [overlayView alwaysVisible])){
             overlayView.alpha = _overlayViewsHidden ? 0.0f : 1.0f;
         }
@@ -329,7 +329,7 @@
 }
 
 #pragma mark - overlay view logic
--(void)addOverlayView:(UIView <RHLayoutScrollViewControllerOverlayViewProtocol> *)view{
+-(void)addOverlayView:(UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> *)view{
     [_overlayViews addObject:view];
     //add if view is loaded
     if (self.isViewLoaded) [self.view addSubview:view];
@@ -358,7 +358,7 @@
     
 }
 
--(void)removeOverlayView:(UIView <RHLayoutScrollViewControllerOverlayViewProtocol> *)view{
+-(void)removeOverlayView:(UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> *)view{
     [_overlayViews removeObject:view];
     //remove from superview if its currently in our container view
     if ([[view superview] isEqual:self.view]) [view removeFromSuperview];
@@ -373,7 +373,7 @@
     NSTimeInterval duration = animated ? kRHScrollViewControllerShowHideOverlayAnimationDuration : 0.0f;
     
     [UIView animateWithDuration:duration animations:^{
-        for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+        for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
             if (!( [overlayView respondsToSelector:@selector(alwaysVisible)] && [overlayView alwaysVisible])){
                 overlayView.alpha = hidden ? 0.0f : 1.0f;
             }
@@ -436,10 +436,10 @@
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 }
 
-#pragma mark - RHLayoutScrollViewDelegate
+#pragma mark - RHHorizontalSwipeViewDelegate
 
--(void)scrollView:(RHLayoutScrollView*)scrollView updateForPercentagePosition:(CGFloat)position{
-    for (UIView<RHLayoutScrollViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
+-(void)scrollView:(RHHorizontalSwipeView*)scrollView updateForPercentagePosition:(CGFloat)position{
+    for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
         if ([overlayView respondsToSelector:@selector(scrollViewController:updateForPercentagePosition:)]){
             [overlayView scrollViewController:self updateForPercentagePosition:position];
         }

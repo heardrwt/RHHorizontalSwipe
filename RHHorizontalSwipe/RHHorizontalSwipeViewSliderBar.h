@@ -1,8 +1,8 @@
 //
-//  RHLayoutScrollView.h
-//  LeftMiddleRight
+//  RHHorizontalSwipeViewSliderBar.h
+//  RHHorizontalSwipe
 //
-//  Created by Richard Heard on 24/01/12.
+//  Created by Richard Heard on 21/02/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -28,39 +28,30 @@
 //  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
+//overlay view used to give the user context as to where they are in their horizontal swipes.
+
 #import <UIKit/UIKit.h>
 
-@class RHLayoutScrollView;
-@protocol RHLayoutScrollViewDelegate <NSObject>
+#import "RHHorizontalSwipeViewControllerOverlayViewProtocol.h"
+@class RHHorizontalSwipeViewController;
 
--(void)scrollView:(RHLayoutScrollView*)scrollView updateForPercentagePosition:(CGFloat)position;
-
-@end
-
-@interface RHLayoutScrollView : UIView <UIScrollViewDelegate>{
-    id <RHLayoutScrollViewDelegate> _delegate; //weak
+@interface RHHorizontalSwipeViewSliderBar : UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> {
+    NSArray *_buttons;
     
-    UIScrollView *_scrollView;
-    NSArray *_orderedViews;
+    UIImageView *_sliderBar;
+    
+    RHHorizontalSwipeViewController *_currentController; //weak
+    
 }
-//delegate
-@property (assign, nonatomic) id <RHLayoutScrollViewDelegate> delegate;
 
-//views
-@property (readonly, nonatomic) UIScrollView *scrollView;
-@property (retain, nonatomic) NSArray *orderedViews;
+@property (readonly, nonatomic) NSArray *buttons;
+@property (readonly, nonatomic) UIImageView *sliderBar;
 
-//index
-@property (assign, nonatomic) NSUInteger currentIndex;
--(void)setCurrentIndex:(NSUInteger)currentIndex animated:(BOOL)animated;
+-(void)updateSliderToPosition:(CGFloat)position;
 
-//scroll to top
--(void)scrollCurrentViewToTop; //scroll the currently active views first scrollview with scrollToTop=YES to the top.
-                               //we have to use this instead of the default system provided status bar behaviour if we have more than one view hosting a scrollToTop=YES scroll view.
-
-//scroll to top helper methods
-+(NSArray*)scrollViewsForView:(UIView*)view;
-+(NSArray*)scrollsToTopViewsForView:(UIView*)view;
-+(UIScrollView*)firstScrollsToTopViewForView:(UIView*)view;
+//style override point
+-(UIButton*)configuredButton;
+-(CGFloat)sliderHeight; //default is self.height
+-(CGFloat)buttonHeight; //default is self.height
 
 @end

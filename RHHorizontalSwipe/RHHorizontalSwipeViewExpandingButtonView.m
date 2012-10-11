@@ -1,6 +1,6 @@
 //
-//  RHLayoutScrollViewExpandingButtonView.m
-//  LeftMiddleRight
+//  RHHorizontalSwipeViewExpandingButtonView.m
+//  RHHorizontalSwipe
 //
 //  Created by Richard Heard on 5/03/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
@@ -28,8 +28,8 @@
 //  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "RHLayoutScrollViewExpandingButtonView.h"
-#import "RHLayoutScrollViewController.h"
+#import "RHHorizontalSwipeViewExpandingButtonView.h"
+#import "RHHorizontalSwipeViewController.h"
 
 
 //config
@@ -43,7 +43,7 @@
 
 
 
-@implementation RHLayoutScrollViewExpandingButtonView
+@implementation RHHorizontalSwipeViewExpandingButtonView
 
 @synthesize startPercentage=_startPercentage;
 @synthesize endPercentage=_endPercentage;
@@ -165,21 +165,21 @@
 }
 
 
-#pragma mark - RHLayoutScrollViewControllerOverlayViewProtocol
+#pragma mark - RHHorizontalSwipeViewControllerOverlayViewProtocol
 
 //add/remove
--(void)addedToScrollViewController:(RHLayoutScrollViewController*)controller{
+-(void)addedToScrollViewController:(RHHorizontalSwipeViewController*)controller{
     _currentController = controller;
     _numberOfPages = controller.orderedViewControllers.count;
     
 }
--(void)removedFromScrollViewController:(RHLayoutScrollViewController*)controller{
+-(void)removedFromScrollViewController:(RHHorizontalSwipeViewController*)controller{
     _currentController = nil;
     _numberOfPages = 0;
 }
 
 //controller updating 
--(void)scrollViewController:(RHLayoutScrollViewController*)controller orderedViewControllersChanged:(NSArray*)viewControllers{
+-(void)scrollViewController:(RHHorizontalSwipeViewController*)controller orderedViewControllersChanged:(NSArray*)viewControllers{
     //store the number of pages.
     _numberOfPages = controller.orderedViewControllers.count;
     
@@ -188,7 +188,7 @@
 
 
 //positional updating
--(void)scrollViewController:(RHLayoutScrollViewController*)controller updateForPercentagePosition:(CGFloat)position{
+-(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateForPercentagePosition:(CGFloat)position{
     [self updateForPercentagePosition:position];
 }
 

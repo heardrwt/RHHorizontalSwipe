@@ -1,6 +1,6 @@
 //
-//  RHLayoutScrollViewController.h
-//  LeftMiddleRight
+//  RHHorizontalSwipeViewController.h
+//  RHHorizontalSwipe
 //
 //  Created by Richard Heard on 24/01/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
@@ -38,12 +38,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RHLayoutScrollView.h"
-#import "RHLayoutScrollViewControllerOverlayViewProtocol.h"
+#import "RHHorizontalSwipeView.h"
+#import "RHHorizontalSwipeViewControllerOverlayViewProtocol.h"
 
-@interface RHLayoutScrollViewController : UIViewController <RHLayoutScrollViewDelegate, UINavigationControllerDelegate>
+@interface RHHorizontalSwipeViewController : UIViewController <RHHorizontalSwipeViewDelegate, UINavigationControllerDelegate>
 
-@property (readonly, nonatomic) RHLayoutScrollView *layoutScrollView;
+@property (readonly, nonatomic) RHHorizontalSwipeView *layoutScrollView;
 
 @property (retain, nonatomic) NSArray *orderedViewControllers;
 
@@ -55,9 +55,9 @@
 @property (assign, nonatomic, getter=isLocked) BOOL locked; //prevent swiping between view controllers
 @property (assign, nonatomic, getter=isAutoLockingEnabled) BOOL autoLockingEnabled; // if any top level nav controllers are not displaying their root view, locked, otherwise unlocked. (sets each nav controllers delegate if nil)
 
-//overlay views, regular views installed statically over the scrollview, if they implement the RHLayoutScrollViewControllerOverlayViewProtocol, will be updated with current index position etc
--(void)addOverlayView:(UIView <RHLayoutScrollViewControllerOverlayViewProtocol> *)view;
--(void)removeOverlayView:(UIView <RHLayoutScrollViewControllerOverlayViewProtocol> *)view;
+//overlay views, regular views installed statically over the scrollview, if they implement the RHHorizontalSwipeViewControllerOverlayViewProtocol, will be updated with current index position etc
+-(void)addOverlayView:(UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> *)view;
+-(void)removeOverlayView:(UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> *)view;
 
 -(void)setOverlayViewsHidden:(BOOL)hidden animated:(BOOL)animated; //hide overlay views, eg for when drilled down etc
 @property (assign, nonatomic, getter=isAutoHidingEnabled) BOOL autoHidingEnabled; // if any nav controllers are not showing root view, overlay views are hidden, otherwise not hidden

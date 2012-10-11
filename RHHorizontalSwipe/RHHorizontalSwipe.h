@@ -1,8 +1,8 @@
 //
-//  RHLayoutScrollViewSliderBar.h
-//  LeftMiddleRight
+//  RHHorizontalSwipe.h
+//  RHHorizontalSwipe
 //
-//  Created by Richard Heard on 21/02/12.
+//  Created by Richard Heard on 11/10/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
 //
 //  Redistribution and use in source and binary forms, with or without
@@ -28,30 +28,9 @@
 //  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-//overlay view used to give the user context as to where they are in their horizontal swipes.
+#import "RHHorizontalSwipeView.h"
+#import "RHHorizontalSwipeViewController.h"
 
-#import <UIKit/UIKit.h>
-
-#import "RHLayoutScrollViewControllerOverlayViewProtocol.h"
-@class RHLayoutScrollViewController;
-
-@interface RHLayoutScrollViewSliderBar : UIView <RHLayoutScrollViewControllerOverlayViewProtocol> {
-    NSArray *_buttons;
-    
-    UIImageView *_sliderBar;
-    
-    RHLayoutScrollViewController *_currentController; //weak
-    
-}
-
-@property (readonly, nonatomic) NSArray *buttons;
-@property (readonly, nonatomic) UIImageView *sliderBar;
-
--(void)updateSliderToPosition:(CGFloat)position;
-
-//style override point
--(UIButton*)configuredButton;
--(CGFloat)sliderHeight; //default is self.height
--(CGFloat)buttonHeight; //default is self.height
-
-@end
+#import "RHHorizontalSwipeViewControllerOverlayViewProtocol.h"
+#import "RHHorizontalSwipeViewExpandingButtonView.h"
+#import "RHHorizontalSwipeViewSliderBar.h"

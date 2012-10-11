@@ -1,6 +1,6 @@
 //
-//  RHLayoutScrollView.m
-//  LeftMiddleRight
+//  RHHorizontalSwipeView.m
+//  RHHorizontalSwipe
 //
 //  Created by Richard Heard on 24/01/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
@@ -28,9 +28,9 @@
 //  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "RHLayoutScrollView.h"
+#import "RHHorizontalSwipeView.h"
 
-@implementation RHLayoutScrollView
+@implementation RHHorizontalSwipeView
 
 @synthesize orderedViews=_orderedViews;
 @synthesize scrollView=_scrollView;
@@ -140,7 +140,7 @@
 -(void)scrollCurrentViewToTop{
     //forward down to first scrollview we find under the current view
     UIView *currentView = [_orderedViews objectAtIndex:[self currentIndex]];
-    UIScrollView *fwdScrollView = [RHLayoutScrollView firstScrollsToTopViewForView:currentView];
+    UIScrollView *fwdScrollView = [RHHorizontalSwipeView firstScrollsToTopViewForView:currentView];
     //scroll to top
     [fwdScrollView setContentOffset:CGPointMake(fwdScrollView.contentOffset.x, 0.0f) animated:YES];
 }
@@ -155,14 +155,14 @@
     
     //now recurse for subviews
     for (UIView *subView in view.subviews) {
-        [scrollViews addObjectsFromArray:[RHLayoutScrollView scrollViewsForView:subView]];
+        [scrollViews addObjectsFromArray:[RHHorizontalSwipeView scrollViewsForView:subView]];
     }
     
     return scrollViews;
 }
 
 +(NSArray*)scrollsToTopViewsForView:(UIView*)view{
-    NSArray *views = [RHLayoutScrollView scrollViewsForView:view];
+    NSArray *views = [RHHorizontalSwipeView scrollViewsForView:view];
     NSIndexSet *set = [views indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
         return [obj scrollsToTop];
     }];
@@ -171,7 +171,7 @@
 }
 
 +(UIScrollView*)firstScrollsToTopViewForView:(UIView*)view{
-    NSArray *topViews = [RHLayoutScrollView scrollsToTopViewsForView:view];
+    NSArray *topViews = [RHHorizontalSwipeView scrollsToTopViewsForView:view];
     if (topViews.count > 0){
         return [topViews objectAtIndex:0];
     }

@@ -9,13 +9,11 @@
 #import "RHAppDelegate.h"
 
 #import "RHViewController.h"
-#import "RHLayoutScrollViewController.h"
+#import "RHHorizontalSwipeViewController.h"
 
 #import "RHTableView.h"
-#import "RHLayoutScrollView.h"
 
-#import "RHLayoutScrollViewSliderBar.h"
-#import "RHLayoutScrollViewExpandingButtonView.h"
+#import <RHHorizontalSwipe/RHHorizontalSwipe.h>
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -39,7 +37,7 @@
 
     
     //create out layout scrollview. it loads its own view on demand using [[UIScreen mainScreen] bounds]
-    self.layoutScrollViewController = [[[RHLayoutScrollViewController alloc] init] autorelease];
+    self.layoutScrollViewController = [[[RHHorizontalSwipeViewController alloc] init] autorelease];
     [self.window setRootViewController:self.layoutScrollViewController];
     
     
@@ -73,12 +71,15 @@
     //add them as the ordered views in the layoutScrollViewController
     [self.layoutScrollViewController setOrderedViewControllers:controllers];
     
+    CGFloat width = self.layoutScrollViewController.view.bounds.size.width;
+    CGFloat height = self.layoutScrollViewController.view.bounds.size.height;
+    
     //install the slider bar
-    RHLayoutScrollViewSliderBar *sliderBar = [[[RHLayoutScrollViewSliderBar alloc] initWithFrame:CGRectMake(0.0f, 480.0f - 22.0f, 320.0f, 22.0f)] autorelease];
+    RHHorizontalSwipeViewSliderBar *sliderBar = [[[RHHorizontalSwipeViewSliderBar alloc] initWithFrame:CGRectMake(0.0f, height - 22.0f, width, 22.0f)] autorelease];
     [self.layoutScrollViewController addOverlayView:sliderBar];
 
     //install the expanding Button view
-    RHLayoutScrollViewExpandingButtonView *sliderButton = [[[RHLayoutScrollViewExpandingButtonView alloc] initWithFrame:CGRectMake(0.0f, 480.0f - 40.0f - 22.0f, 320.0f, 40.0f)] autorelease];
+    RHHorizontalSwipeViewExpandingButtonView *sliderButton = [[[RHHorizontalSwipeViewExpandingButtonView alloc] initWithFrame:CGRectMake(0.0f, height - 40.0f - 22.0f, width, 40.0f)] autorelease];
     [self.layoutScrollViewController addOverlayView:sliderButton];
     sliderButton.startPercentage = 0.50f;
     sliderButton.endPercentage = 1.00f;

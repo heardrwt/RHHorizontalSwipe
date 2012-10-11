@@ -1,6 +1,6 @@
 //
-//  RHLayoutScrollViewSliderBar.m
-//  LeftMiddleRight
+//  RHHorizontalSwipeViewSliderBar.m
+//  RHHorizontalSwipe
 //
 //  Created by Richard Heard on 21/02/12.
 //  Copyright (c) 2012 Richard Heard. All rights reserved.
@@ -28,10 +28,10 @@
 //  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-#import "RHLayoutScrollViewSliderBar.h"
-#import "RHLayoutScrollViewController.h"
+#import "RHHorizontalSwipeViewSliderBar.h"
+#import "RHHorizontalSwipeViewController.h"
 
-@implementation RHLayoutScrollViewSliderBar
+@implementation RHHorizontalSwipeViewSliderBar
 
 static void * _kvoContext;
 
@@ -118,13 +118,13 @@ static void * _kvoContext;
     }
 }
 
-#pragma mark - RHLayoutScrollViewControllerOverlayViewProtocol
+#pragma mark - RHHorizontalSwipeViewControllerOverlayViewProtocol
 
 //add/remove
--(void)addedToScrollViewController:(RHLayoutScrollViewController*)controller{
+-(void)addedToScrollViewController:(RHHorizontalSwipeViewController*)controller{
     _currentController = controller;
 }
--(void)removedFromScrollViewController:(RHLayoutScrollViewController*)controller{
+-(void)removedFromScrollViewController:(RHHorizontalSwipeViewController*)controller{
     //remove kvo observers
     for (UIViewController *vc in _currentController.orderedViewControllers) {
         if ([NSObject instancesRespondToSelector:@selector(removeObserver:forKeyPath:context:)]){
@@ -153,7 +153,7 @@ static void * _kvoContext;
 
 
 //controller updating 
--(void)scrollViewController:(RHLayoutScrollViewController *)controller orderedViewControllersChangedFrom:(NSArray *)oldViewControllers to:(NSArray *)newViewControllers{
+-(void)scrollViewController:(RHHorizontalSwipeViewController *)controller orderedViewControllersChangedFrom:(NSArray *)oldViewControllers to:(NSArray *)newViewControllers{
     //just grab their titles and use them as our button titles
     [_buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_buttons release];
@@ -182,7 +182,7 @@ static void * _kvoContext;
 
 
 //positional updating
--(void)scrollViewController:(RHLayoutScrollViewController*)controller updateForPercentagePosition:(CGFloat)position{
+-(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateForPercentagePosition:(CGFloat)position{
     [self updateSliderToPosition:position];
 }
 
