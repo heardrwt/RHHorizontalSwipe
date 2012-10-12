@@ -32,7 +32,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RHHorizontalSwipeViewControllerOverlayViewProtocol.h"
+#import "RHHorizontalSwipeViewControllerProtocols.h"
 @class RHHorizontalSwipeViewController;
 
 @interface RHHorizontalSwipeViewExpandingButtonView : UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> {

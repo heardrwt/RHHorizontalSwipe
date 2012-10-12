@@ -31,6 +31,6 @@
 #import "RHHorizontalSwipeView.h"
 #import "RHHorizontalSwipeViewController.h"
 
-#import "RHHorizontalSwipeViewControllerOverlayViewProtocol.h"
+#import "RHHorizontalSwipeViewControllerProtocols.h"
 #import "RHHorizontalSwipeViewExpandingButtonView.h"
 #import "RHHorizontalSwipeViewSliderBar.h"

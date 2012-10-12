@@ -24,7 +24,7 @@
 		13ED7FCA162744C00027F68E /* RHHorizontalSwipe.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FC8162742B00027F68E /* RHHorizontalSwipe.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13ED7FCB162744C00027F68E /* RHHorizontalSwipeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FB4162741C00027F68E /* RHHorizontalSwipeView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13ED7FCC162744C00027F68E /* RHHorizontalSwipeViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FBB1627421A0027F68E /* RHHorizontalSwipeViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		13ED7FCD162744C00027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		13ED7FCD162744C00027F68E /* RHHorizontalSwipeViewControllerProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerProtocols.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13ED7FCE162744C00027F68E /* RHHorizontalSwipeViewExpandingButtonView.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FBE1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13ED7FCF162744C00027F68E /* RHHorizontalSwipeViewSliderBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 13ED7FC01627421A0027F68E /* RHHorizontalSwipeViewSliderBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13F6C794162753640011E859 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13F6C793162753640011E859 /* Default-568h@2x.png */; };
@@ -61,7 +61,7 @@
 		13ED7FB6162741C00027F68E /* RHHorizontalSwipeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RHHorizontalSwipeView.m; sourceTree = "<group>"; };
 		13ED7FBB1627421A0027F68E /* RHHorizontalSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewController.h; sourceTree = "<group>"; };
 		13ED7FBC1627421A0027F68E /* RHHorizontalSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHHorizontalSwipeViewController.m; sourceTree = "<group>"; };
-		13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewControllerOverlayViewProtocol.h; sourceTree = "<group>"; };
+		13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewControllerProtocols.h; sourceTree = "<group>"; };
 		13ED7FBE1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewExpandingButtonView.h; sourceTree = "<group>"; };
 		13ED7FBF1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RHHorizontalSwipeViewExpandingButtonView.m; sourceTree = "<group>"; };
 		13ED7FC01627421A0027F68E /* RHHorizontalSwipeViewSliderBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHHorizontalSwipeViewSliderBar.h; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 				13ED7FB6162741C00027F68E /* RHHorizontalSwipeView.m */,
 				13ED7FBB1627421A0027F68E /* RHHorizontalSwipeViewController.h */,
 				13ED7FBC1627421A0027F68E /* RHHorizontalSwipeViewController.m */,
-				13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h */,
+				13ED7FBD1627421A0027F68E /* RHHorizontalSwipeViewControllerProtocols.h */,
 				13ED7FBE1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.h */,
 				13ED7FBF1627421A0027F68E /* RHHorizontalSwipeViewExpandingButtonView.m */,
 				13ED7FC01627421A0027F68E /* RHHorizontalSwipeViewSliderBar.h */,
@@ -184,7 +184,7 @@
 				13ED7FCA162744C00027F68E /* RHHorizontalSwipe.h in Headers */,
 				13ED7FCB162744C00027F68E /* RHHorizontalSwipeView.h in Headers */,
 				13ED7FCC162744C00027F68E /* RHHorizontalSwipeViewController.h in Headers */,
-				13ED7FCD162744C00027F68E /* RHHorizontalSwipeViewControllerOverlayViewProtocol.h in Headers */,
+				13ED7FCD162744C00027F68E /* RHHorizontalSwipeViewControllerProtocols.h in Headers */,
 				13ED7FCE162744C00027F68E /* RHHorizontalSwipeViewExpandingButtonView.h in Headers */,
 				13ED7FCF162744C00027F68E /* RHHorizontalSwipeViewSliderBar.h in Headers */,
 			);

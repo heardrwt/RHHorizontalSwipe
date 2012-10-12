@@ -39,7 +39,7 @@
 #import <UIKit/UIKit.h>
 
 #import "RHHorizontalSwipeView.h"
-#import "RHHorizontalSwipeViewControllerOverlayViewProtocol.h"
+#import "RHHorizontalSwipeViewControllerProtocols.h"
 
 @interface RHHorizontalSwipeViewController : UIViewController <RHHorizontalSwipeViewDelegate, UINavigationControllerDelegate>
 
@@ -58,6 +58,11 @@
 //overlay views, regular views installed statically over the scrollview, if they implement the RHHorizontalSwipeViewControllerOverlayViewProtocol, will be updated with current index position etc
 -(void)addOverlayView:(UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> *)view;
 -(void)removeOverlayView:(UIView <RHHorizontalSwipeViewControllerOverlayViewProtocol> *)view;
+
+//status subscribers, subscribers are retained by the controller
+-(void)subscribeToStatusUpdates:(id <RHHorizontalSwipeViewControllerStatusUpdateProtocol>)subscriber;
+-(void)unsubscribeFromStatusUpdates:(id <RHHorizontalSwipeViewControllerStatusUpdateProtocol>)subscriber;
+
 
 -(void)setOverlayViewsHidden:(BOOL)hidden animated:(BOOL)animated; //hide overlay views, eg for when drilled down etc
 @property (assign, nonatomic, getter=isAutoHidingEnabled) BOOL autoHidingEnabled; // if any nav controllers are not showing root view, overlay views are hidden, otherwise not hidden

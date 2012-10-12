@@ -1,5 +1,5 @@
 //
-//  RHHorizontalSwipeViewControllerOverlayViewProtocol.h
+//  RHHorizontalSwipeViewControllerProtocols.h
 //  RHHorizontalSwipe
 //
 //  Created by Richard Heard on 21/02/12.
@@ -32,18 +32,9 @@
 
 @class RHHorizontalSwipeViewController;
 
-//layout scroll view controller overlay view protocol
-@protocol RHHorizontalSwipeViewControllerOverlayViewProtocol <NSObject>
+@protocol RHHorizontalSwipeViewControllerStatusUpdateProtocol <NSObject>
 
 @optional
-//visibility
--(BOOL)alwaysVisible; //defaults to no
-
-
-//added/removed to/from scrollviewcontroller
--(void)addedToScrollViewController:(RHHorizontalSwipeViewController*)controller;
--(void)removedFromScrollViewController:(RHHorizontalSwipeViewController*)controller; //good place to nil out any weak refs to the current controller
-
 
 //view controllers changed
 -(void)scrollViewController:(RHHorizontalSwipeViewController*)controller orderedViewControllersChangedFrom:(NSArray*)oldViewControllers to:(NSArray*)newViewControllers;
@@ -52,5 +43,21 @@
 -(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateNumberOfPages:(NSInteger)numberOfPages;
 -(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateCurrentPage:(NSInteger)page;
 -(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateForPercentagePosition:(CGFloat)position;
+
+@end
+
+
+//layout scroll view controller overlay view protocol
+@protocol RHHorizontalSwipeViewControllerOverlayViewProtocol <RHHorizontalSwipeViewControllerStatusUpdateProtocol>
+
+@optional
+
+//visibility
+-(BOOL)alwaysVisible; //defaults to no
+
+
+//added/removed to/from scrollviewcontroller
+-(void)addedToScrollViewController:(RHHorizontalSwipeViewController*)controller;
+-(void)removedFromScrollViewController:(RHHorizontalSwipeViewController*)controller; //good place to nil out any weak refs to the current controller
 
 @end

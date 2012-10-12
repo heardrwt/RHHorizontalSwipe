@@ -52,16 +52,24 @@
     NSMutableSet *_overlayViews;
     BOOL _overlayViewsHidden;
     
+    NSMutableSet *_statusSubscribers;
+    
     BOOL _willFlag; //used to decide if we need to send viewWillAppear/viewWillDisapear to controllers when setting orderedViewControllers 
     BOOL _didFlag; //used to decide if we need to send viewDidAppear/viewDidDisapear to controllers when setting orderedViewControllers 
 }
 
+
 - (id)init {
+    return [self initWithNibName:nil bundle:nil];
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         // Custom initialization
         self.wantsFullScreenLayout = YES;
         _overlayViews = [[NSMutableSet alloc] init];
+        _statusSubscribers = [[NSMutableSet alloc] init];
     }
     return self;
 }
@@ -86,13 +94,14 @@
     
     //remove any delegates that point to us
     [self deregisterNavigationControllerDelegates];
+
     
     //regular cleanup
-    
     RN(_orderedViewControllers);
     _layoutScrollView.delegate = nil;
     RN(_layoutScrollView);
     RN(_overlayViews);
+    RN(_statusSubscribers);
     
     [super dealloc];
 }
@@ -147,7 +156,7 @@
             }
         }
         
-        //call the will / did disapear methods (only if we are currently loaded)
+        //call the will / did disappear methods (only if we are currently loaded)
         for (UIViewController *vc in _orderedViewControllers) {
             if(_willFlag)[vc viewWillDisappear:NO];
             if(_didFlag)[vc viewDidDisappear:NO];
@@ -176,14 +185,14 @@
         //redisplay
         [_layoutScrollView setOrderedViews:[_orderedViewControllers valueForKey:@"view"]];
         
-        //notify overlay views
-        for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
-            if ([overlayView respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
-                [overlayView scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
+        //notify status subscribers
+        for (id<RHHorizontalSwipeViewControllerStatusUpdateProtocol> subscriber in _statusSubscribers) {
+            if ([subscriber respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
+                [subscriber scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
             }
             
-            if ([overlayView respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
-                [overlayView scrollViewController:self orderedViewControllersChangedFrom:oldOrderedViewControllers to:_orderedViewControllers];
+            if ([subscriber respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
+                [subscriber scrollViewController:self orderedViewControllersChangedFrom:oldOrderedViewControllers to:_orderedViewControllers];
             }
             
         }
@@ -340,18 +349,8 @@
         [view addedToScrollViewController:self];
     }
     
-    if ([view respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
-        [view scrollViewController:self orderedViewControllersChangedFrom:nil to:_orderedViewControllers];
-    }    
-    
-    if ([view respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
-        [view scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
-    }    
-    
-    
-    if ([view respondsToSelector:@selector(scrollViewController:updateCurrentPage:)]){
-        [view scrollViewController:self updateCurrentPage:[self currentIndex]];
-    }
+    //add to status subscribers so it gets the standard status info also.
+    [self subscribeToStatusUpdates:view];
     
     //set hidden value
     view.alpha = _overlayViewsHidden ? 0.0f : 1.0f;
@@ -366,7 +365,10 @@
     if ([view respondsToSelector:@selector(removedFromScrollViewController:)]){
         [view removedFromScrollViewController:self];
     }
-    
+
+    //remove from status subscribers
+    [self unsubscribeFromStatusUpdates:view];
+
 }
 
 -(void)setOverlayViewsHidden:(BOOL)hidden animated:(BOOL)animated{
@@ -383,6 +385,30 @@
         _overlayViewsHidden = hidden;
     }];
     
+}
+
+
+#pragma mark - subscription logic
+-(void)subscribeToStatusUpdates:(id <RHHorizontalSwipeViewControllerStatusUpdateProtocol>)subscriber{
+    [_statusSubscribers addObject:subscriber];
+
+    if ([subscriber respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
+        [subscriber scrollViewController:self orderedViewControllersChangedFrom:nil to:_orderedViewControllers];
+    }
+    
+    if ([subscriber respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
+        [subscriber scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
+    }
+    
+    
+    if ([subscriber respondsToSelector:@selector(scrollViewController:updateCurrentPage:)]){
+        [subscriber scrollViewController:self updateCurrentPage:[self currentIndex]];
+    }
+
+}
+-(void)unsubscribeFromStatusUpdates:(id <RHHorizontalSwipeViewControllerStatusUpdateProtocol>)subscriber{
+    [_statusSubscribers removeObject:subscriber];
+
 }
 
 
@@ -439,9 +465,9 @@
 #pragma mark - RHHorizontalSwipeViewDelegate
 
 -(void)scrollView:(RHHorizontalSwipeView*)scrollView updateForPercentagePosition:(CGFloat)position{
-    for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
-        if ([overlayView respondsToSelector:@selector(scrollViewController:updateForPercentagePosition:)]){
-            [overlayView scrollViewController:self updateForPercentagePosition:position];
+    for (id<RHHorizontalSwipeViewControllerStatusUpdateProtocol> subscriber in _statusSubscribers) {
+        if ([subscriber respondsToSelector:@selector(scrollViewController:updateForPercentagePosition:)]){
+            [subscriber scrollViewController:self updateForPercentagePosition:position];
         }
     }
 }
