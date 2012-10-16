@@ -32,7 +32,7 @@
 
 #import "RHHorizontalSwipeView.h"
 
-#define kRHScrollViewControllerShowHideOverlayAnimationDuration 0.3f
+#define kRHHorizontalSwipeViewControllerShowHideOverlayAnimationDuration 0.3f
 
 //private
 @interface RHHorizontalSwipeViewController ()
@@ -85,12 +85,16 @@
 
 - (void)dealloc {
     
-    //notify overlay views of our destruction
-    for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
-        if ([overlayView respondsToSelector:@selector(removedFromScrollViewController:)]){
-            [overlayView removedFromScrollViewController:self];
-        }
+    //notify overlay views of our destruction, iterate over a copy of the array, because we will be mutating the original
+    for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in [[_overlayViews copy] autorelease]) {
+        [self removeOverlayView:overlayView];
     }
+    
+    //notify info subscribers about their unsubscription, iterate over a copy of the array, because we will be mutating the original
+    for (id<RHHorizontalSwipeViewControllerStatusUpdateProtocol> subscriber in [[_statusSubscribers copy] autorelease]) {
+        [self unsubscribeFromStatusUpdates:subscriber];
+    }
+
     
     //remove any delegates that point to us
     [self deregisterNavigationControllerDelegates];
@@ -187,8 +191,8 @@
         
         //notify status subscribers
         for (id<RHHorizontalSwipeViewControllerStatusUpdateProtocol> subscriber in _statusSubscribers) {
-            if ([subscriber respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
-                [subscriber scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
+            if ([subscriber respondsToSelector:@selector(scrollViewController:updatedNumberOfPages:)]){
+                [subscriber scrollViewController:self updatedNumberOfPages:[_orderedViewControllers count]];
             }
             
             if ([subscriber respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
@@ -372,7 +376,7 @@
 }
 
 -(void)setOverlayViewsHidden:(BOOL)hidden animated:(BOOL)animated{
-    NSTimeInterval duration = animated ? kRHScrollViewControllerShowHideOverlayAnimationDuration : 0.0f;
+    NSTimeInterval duration = animated ? kRHHorizontalSwipeViewControllerShowHideOverlayAnimationDuration : 0.0f;
     
     [UIView animateWithDuration:duration animations:^{
         for (UIView<RHHorizontalSwipeViewControllerOverlayViewProtocol> *overlayView in _overlayViews) {
@@ -392,21 +396,33 @@
 -(void)subscribeToStatusUpdates:(id <RHHorizontalSwipeViewControllerStatusUpdateProtocol>)subscriber{
     [_statusSubscribers addObject:subscriber];
 
+    //notify the new subscriber of its subscription
+    if ([subscriber respondsToSelector:@selector(subscribedToStatusUpdatesForViewController:)]){
+        [subscriber subscribedToStatusUpdatesForViewController:self];
+    }
+    
     if ([subscriber respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
         [subscriber scrollViewController:self orderedViewControllersChangedFrom:nil to:_orderedViewControllers];
     }
     
-    if ([subscriber respondsToSelector:@selector(scrollViewController:updateNumberOfPages:)]){
-        [subscriber scrollViewController:self updateNumberOfPages:[_orderedViewControllers count]];
+    if ([subscriber respondsToSelector:@selector(scrollViewController:updatedNumberOfPages:)]){
+        [subscriber scrollViewController:self updatedNumberOfPages:[_orderedViewControllers count]];
     }
     
     
-    if ([subscriber respondsToSelector:@selector(scrollViewController:updateCurrentPage:)]){
-        [subscriber scrollViewController:self updateCurrentPage:[self currentIndex]];
+    if ([subscriber respondsToSelector:@selector(scrollViewController:updatedCurrentPage:)]){
+        [subscriber scrollViewController:self updatedCurrentPage:[self currentIndex]];
     }
 
 }
+
 -(void)unsubscribeFromStatusUpdates:(id <RHHorizontalSwipeViewControllerStatusUpdateProtocol>)subscriber{
+    
+    //notify the subscriber of its unsubscription
+    if ([subscriber respondsToSelector:@selector(unsubscribedFromStatusUpdatesForViewController:)]){
+        [subscriber unsubscribedFromStatusUpdatesForViewController:self];
+    }
+
     [_statusSubscribers removeObject:subscriber];
 
 }
@@ -466,8 +482,8 @@
 
 -(void)scrollView:(RHHorizontalSwipeView*)scrollView updateForPercentagePosition:(CGFloat)position{
     for (id<RHHorizontalSwipeViewControllerStatusUpdateProtocol> subscriber in _statusSubscribers) {
-        if ([subscriber respondsToSelector:@selector(scrollViewController:updateForPercentagePosition:)]){
-            [subscriber scrollViewController:self updateForPercentagePosition:position];
+        if ([subscriber respondsToSelector:@selector(scrollViewController:updatedPercentagePosition:)]){
+            [subscriber scrollViewController:self updatedPercentagePosition:position];
         }
     }
 }

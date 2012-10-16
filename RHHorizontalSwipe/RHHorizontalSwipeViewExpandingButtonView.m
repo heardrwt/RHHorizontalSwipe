@@ -188,7 +188,7 @@
 
 
 //positional updating
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateForPercentagePosition:(CGFloat)position{
+-(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position{
     [self updateForPercentagePosition:position];
 }
 

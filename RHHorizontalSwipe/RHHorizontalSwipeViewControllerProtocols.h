@@ -36,13 +36,18 @@
 
 @optional
 
+//subscription
+-(void)subscribedToStatusUpdatesForViewController:(RHHorizontalSwipeViewController*)controller;
+-(void)unsubscribedFromStatusUpdatesForViewController:(RHHorizontalSwipeViewController*)controller; //good place to nil out any weak refs to the current controller
+
+
 //view controllers changed
 -(void)scrollViewController:(RHHorizontalSwipeViewController*)controller orderedViewControllersChangedFrom:(NSArray*)oldViewControllers to:(NSArray*)newViewControllers;
 
 //positional updating
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateNumberOfPages:(NSInteger)numberOfPages;
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateCurrentPage:(NSInteger)page;
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateForPercentagePosition:(CGFloat)position;
+-(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedNumberOfPages:(NSInteger)numberOfPages;
+-(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedCurrentPage:(NSInteger)page;
+-(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position;
 
 @end
 

@@ -33,7 +33,7 @@
 
 @implementation RHHorizontalSwipeViewSliderBar
 
-static void * _kvoContext;
+static void * RHHorizontalSwipeViewSliderBarKVOContext = &RHHorizontalSwipeViewSliderBarKVOContext;
 
 @synthesize buttons=_buttons;
 @synthesize sliderBar=_sliderBar;
@@ -62,7 +62,7 @@ static void * _kvoContext;
     //remove kvo observers
     for (UIViewController *vc in _currentController.orderedViewControllers) {
         if ([NSObject instancesRespondToSelector:@selector(removeObserver:forKeyPath:context:)]){
-            [vc removeObserver:self forKeyPath:@"title" context:&_kvoContext];
+            [vc removeObserver:self forKeyPath:@"title" context:RHHorizontalSwipeViewSliderBarKVOContext];
         } else {
             [vc removeObserver:self forKeyPath:@"title"];
         }
@@ -118,23 +118,24 @@ static void * _kvoContext;
     }
 }
 
-#pragma mark - RHHorizontalSwipeViewControllerOverlayViewProtocol
-
-//add/remove
--(void)addedToScrollViewController:(RHHorizontalSwipeViewController*)controller{
+#pragma mark - RHHorizontalSwipeViewControllerStatusUpdateProtocol
+-(void)subscribedToStatusUpdatesForViewController:(RHHorizontalSwipeViewController*)controller{
     _currentController = controller;
 }
--(void)removedFromScrollViewController:(RHHorizontalSwipeViewController*)controller{
+
+-(void)unsubscribedFromStatusUpdatesForViewController:(RHHorizontalSwipeViewController*)controller{
+
     //remove kvo observers
     for (UIViewController *vc in _currentController.orderedViewControllers) {
         if ([NSObject instancesRespondToSelector:@selector(removeObserver:forKeyPath:context:)]){
-            [vc removeObserver:self forKeyPath:@"title" context:&_kvoContext];
+            [vc removeObserver:self forKeyPath:@"title" context:RHHorizontalSwipeViewSliderBarKVOContext];
         } else {
             [vc removeObserver:self forKeyPath:@"title"];
         }
     }
     
     _currentController = nil;
+    
 }
 
 //layout overrides
@@ -162,14 +163,14 @@ static void * _kvoContext;
     //remove old observers
     for (UIViewController *vc in oldViewControllers) {
         if ([NSObject instancesRespondToSelector:@selector(removeObserver:forKeyPath:context:)]){
-            [vc removeObserver:self forKeyPath:@"title" context:&_kvoContext];
+            [vc removeObserver:self forKeyPath:@"title" context:RHHorizontalSwipeViewSliderBarKVOContext];
         } else {
             [vc removeObserver:self forKeyPath:@"title"];
         }
     }
     
     for (UIViewController *vc in newViewControllers) {
-        [vc addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:&_kvoContext];
+        [vc addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:RHHorizontalSwipeViewSliderBarKVOContext];
         
         UIButton *button = [self configuredButton];
         [button setTitle:[vc title] forState:UIControlStateNormal];
@@ -182,14 +183,14 @@ static void * _kvoContext;
 
 
 //positional updating
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updateForPercentagePosition:(CGFloat)position{
+-(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position{
     [self updateSliderToPosition:position];
 }
 
 //kvo observing
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     //controller titles
-    if ([keyPath isEqualToString:@"title"] && context == &_kvoContext){
+    if ([keyPath isEqualToString:@"title"] && context == RHHorizontalSwipeViewSliderBarKVOContext){
         
         //find index of button to update
         NSUInteger index = [_currentController.orderedViewControllers indexOfObject:object];
