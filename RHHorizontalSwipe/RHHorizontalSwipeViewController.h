@@ -52,6 +52,10 @@
 @property (assign, nonatomic) NSUInteger currentIndex;
 -(void)setCurrentIndex:(NSUInteger)currentIndex animated:(BOOL)animated;
 
+-(void)swipeLeftAnimated:(BOOL)animated; //index++
+-(void)swipeRightAnimated:(BOOL)animated; //index--
+
+
 @property (assign, nonatomic, getter=isLocked) BOOL locked; //prevent swiping between view controllers
 @property (assign, nonatomic, getter=isAutoLockingEnabled) BOOL autoLockingEnabled; // if any top level nav controllers are not displaying their root view, locked, otherwise unlocked. (sets each nav controllers delegate if nil)
 

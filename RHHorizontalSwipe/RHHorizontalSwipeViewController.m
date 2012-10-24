@@ -137,6 +137,14 @@
     }
 }
 
+-(void)swipeLeftAnimated:(BOOL)animated{
+    [self setCurrentIndex:self.currentIndex + 1 animated:animated];
+}
+
+-(void)swipeRightAnimated:(BOOL)animated{
+    [self setCurrentIndex:self.currentIndex - 1 animated:animated];
+}
+
 -(UIViewController*)currentViewController{
     NSUInteger index = [self currentIndex];
     if (index >= [_orderedViewControllers count]) return nil;
