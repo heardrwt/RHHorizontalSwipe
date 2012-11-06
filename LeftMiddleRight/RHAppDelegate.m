@@ -58,11 +58,11 @@
     UIViewController *middleViewController = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
     [[(UINavigationController*)middleViewController navigationBar] setBarStyle:UIBarStyleBlack];
 
-    // 3
+    // 3 (without nav stack)
     vc = [[[RHViewController alloc] initWithNibName:nil bundle:nil] autorelease];
     [vc.view setBackgroundColor:[UIColor redColor]];
     vc.title = @"Right";
-    UIViewController *rightViewController = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+    UIViewController *rightViewController = vc;
 
     NSArray *controllers = [NSArray arrayWithObjects:leftViewController, 
                             middleViewController,

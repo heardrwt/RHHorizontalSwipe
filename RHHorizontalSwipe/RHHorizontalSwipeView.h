@@ -32,8 +32,11 @@
 
 @class RHHorizontalSwipeView;
 @protocol RHHorizontalSwipeViewDelegate <NSObject>
+@required
 
 -(void)scrollView:(RHHorizontalSwipeView*)scrollView updateForPercentagePosition:(CGFloat)position;
+
+-(BOOL)scrollView:(RHHorizontalSwipeView*)scrollView viewWantsFullScreenLayout:(UIView*)view;
 
 @end
 
@@ -62,5 +65,9 @@
 +(NSArray*)scrollViewsForView:(UIView*)view;
 +(NSArray*)scrollsToTopViewsForView:(UIView*)view;
 +(UIScrollView*)firstScrollsToTopViewForView:(UIView*)view;
+
+//view layout helpers
+-(CGRect)frameForView:(UIView*)view; //asks the delegate if view wants full screen layout, then accounts for status bar etc. (frames x is ignored when laying out content)
+-(CGFloat)statusBarHeight;
 
 @end

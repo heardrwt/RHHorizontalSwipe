@@ -40,6 +40,10 @@
 -(void)registerNavigationControllerDelegates;
 -(void)deregisterNavigationControllerDelegates;
 
+-(UIView*)viewForViewController:(UIViewController*)controller;
+-(UIViewController*)viewControllerForView:(UIView*)view;
+
+
 @end
 
 @implementation RHHorizontalSwipeViewController {
@@ -245,6 +249,20 @@
         }
     }
 }
+
+-(UIView*)viewForViewController:(UIViewController*)controller{
+    if (![_orderedViewControllers containsObject:controller]) return nil;
+    return controller.view;
+}
+
+-(UIViewController*)viewControllerForView:(UIView*)view{
+    for (UIViewController *controller in _orderedViewControllers) {
+        if (controller.view == view) return controller;
+    }
+    
+    return nil;
+}
+
 
 #pragma mark - View lifecycle
 
@@ -495,6 +513,13 @@
         }
     }
 }
+
+-(BOOL)scrollView:(RHHorizontalSwipeView*)scrollView viewWantsFullScreenLayout:(UIView*)view{
+    UIViewController *controller = [self viewControllerForView:view];
+    
+    return controller.wantsFullScreenLayout;
+}
+
 
 #pragma mark - UINavigationControllerDelegate
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{

@@ -92,9 +92,8 @@
     //layout our ordered views based on their current dimensions paged horizontally
     CGFloat xOffset = 0.0f;
     for (UIView *view in _orderedViews) {
-        CGRect frame = view.frame;
+        CGRect frame = [self frameForView:view];
         frame.origin.x = xOffset;
-        frame.origin.y = 0.0f;
         view.frame = frame;
         xOffset += frame.size.width;
     }
@@ -177,5 +176,46 @@
     }
     return nil;
 }
+
+#pragma mark - view layout helpers
+-(CGRect)frameForView:(UIView*)view{
+    // if our frame is not 0,0 then we always want to have full size views. (we ourselves are not under the status bar)
+    if (self.frame.origin.y != 0.0f) {
+        return _scrollView.bounds;
+    }
+
+    //otherwise ask our delegate if each view wants full screen layout
+    BOOL wantsFullScreenlayout = YES; //default to full screen
+    
+    if ([_delegate respondsToSelector:@selector(scrollView:viewWantsFullScreenLayout:)]){
+        wantsFullScreenlayout = [_delegate scrollView:self viewWantsFullScreenLayout:view];
+    }
+
+    //full screen
+    if (wantsFullScreenlayout){
+        return _scrollView.bounds;
+    }
+    
+    //not full screen, include status bar height in returned frame
+    CGFloat statusBarHeight = [self statusBarHeight];
+    CGRect frame = _scrollView.bounds;
+    frame.origin.y += statusBarHeight;
+    frame.size.height -= statusBarHeight;
+    
+    return frame;
+
+}
+
+-(CGFloat)statusBarHeight{
+    CGRect frame = [[UIApplication sharedApplication] statusBarFrame];
+    
+    switch ([[UIApplication sharedApplication] statusBarOrientation]) {
+        case UIInterfaceOrientationPortrait: return frame.size.height;
+        case UIInterfaceOrientationPortraitUpsideDown: return frame.size.height;
+        case UIInterfaceOrientationLandscapeLeft: return frame.size.width;
+        case UIInterfaceOrientationLandscapeRight: return frame.size.width;
+    }
+}
+
 
 @end

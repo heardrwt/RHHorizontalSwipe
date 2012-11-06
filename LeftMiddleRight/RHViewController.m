@@ -39,6 +39,12 @@
                                       blue:(arc4random() % 256 / 256.0f)  
                                      alpha:1.0f];
     [self.view setBackgroundColor:randomColor];
+    
+    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, 20.0f)] autorelease];
+    [label setText:@"Top Of View"];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    
+    [self.view addSubview:label];
 }
 
 - (void)viewDidLoad
