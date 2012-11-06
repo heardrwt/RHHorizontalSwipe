@@ -234,6 +234,7 @@
 		138960EF14CE450F00C64EF3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = RH;
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "Richard Heard";
 			};
@@ -395,7 +396,10 @@
 				GCC_PREFIX_HEADER = "RHHorizontalSwipe/RHHorizontalSwipe-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRIVATE_HEADERS_FOLDER_PATH = "$(PUBLIC_HEADERS_FOLDER_PATH)/Private";
 				PRODUCT_NAME = RHHorizontalSwipe;
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
@@ -415,7 +419,10 @@
 				GCC_PREFIX_HEADER = "RHHorizontalSwipe/RHHorizontalSwipe-Prefix.pch";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRIVATE_HEADERS_FOLDER_PATH = "$(PUBLIC_HEADERS_FOLDER_PATH)/Private";
 				PRODUCT_NAME = RHHorizontalSwipe;
 				PUBLIC_HEADERS_FOLDER_PATH = "include/$(TARGET_NAME)";
