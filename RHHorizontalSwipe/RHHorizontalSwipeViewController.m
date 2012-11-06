@@ -203,12 +203,12 @@
         
         //notify status subscribers
         for (id<RHHorizontalSwipeViewControllerStatusUpdateProtocol> subscriber in _statusSubscribers) {
-            if ([subscriber respondsToSelector:@selector(scrollViewController:updatedNumberOfPages:)]){
-                [subscriber scrollViewController:self updatedNumberOfPages:[_orderedViewControllers count]];
+            if ([subscriber respondsToSelector:@selector(swipeViewController:updatedNumberOfPages:)]){
+                [subscriber swipeViewController:self updatedNumberOfPages:[_orderedViewControllers count]];
             }
             
-            if ([subscriber respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
-                [subscriber scrollViewController:self orderedViewControllersChangedFrom:oldOrderedViewControllers to:_orderedViewControllers];
+            if ([subscriber respondsToSelector:@selector(swipeViewController:orderedViewControllersChangedFrom:to:)]){
+                [subscriber swipeViewController:self orderedViewControllersChangedFrom:oldOrderedViewControllers to:_orderedViewControllers];
             }
             
         }
@@ -427,17 +427,17 @@
         [subscriber subscribedToStatusUpdatesForViewController:self];
     }
     
-    if ([subscriber respondsToSelector:@selector(scrollViewController:orderedViewControllersChangedFrom:to:)]){
-        [subscriber scrollViewController:self orderedViewControllersChangedFrom:nil to:_orderedViewControllers];
+    if ([subscriber respondsToSelector:@selector(swipeViewController:orderedViewControllersChangedFrom:to:)]){
+        [subscriber swipeViewController:self orderedViewControllersChangedFrom:nil to:_orderedViewControllers];
     }
     
-    if ([subscriber respondsToSelector:@selector(scrollViewController:updatedNumberOfPages:)]){
-        [subscriber scrollViewController:self updatedNumberOfPages:[_orderedViewControllers count]];
+    if ([subscriber respondsToSelector:@selector(swipeViewController:updatedNumberOfPages:)]){
+        [subscriber swipeViewController:self updatedNumberOfPages:[_orderedViewControllers count]];
     }
     
     
-    if ([subscriber respondsToSelector:@selector(scrollViewController:updatedCurrentPage:)]){
-        [subscriber scrollViewController:self updatedCurrentPage:[self currentIndex]];
+    if ([subscriber respondsToSelector:@selector(swipeViewController:updatedCurrentPage:)]){
+        [subscriber swipeViewController:self updatedCurrentPage:[self currentIndex]];
     }
 
 }
@@ -506,15 +506,15 @@
 
 #pragma mark - RHHorizontalSwipeViewDelegate
 
--(void)scrollView:(RHHorizontalSwipeView*)scrollView updateForPercentagePosition:(CGFloat)position{
+-(void)swipeView:(RHHorizontalSwipeView*)swipeView updateForPercentagePosition:(CGFloat)position{
     for (id<RHHorizontalSwipeViewControllerStatusUpdateProtocol> subscriber in _statusSubscribers) {
-        if ([subscriber respondsToSelector:@selector(scrollViewController:updatedPercentagePosition:)]){
-            [subscriber scrollViewController:self updatedPercentagePosition:position];
+        if ([subscriber respondsToSelector:@selector(swipeViewController:updatedPercentagePosition:)]){
+            [subscriber swipeViewController:self updatedPercentagePosition:position];
         }
     }
 }
 
--(BOOL)scrollView:(RHHorizontalSwipeView*)scrollView viewWantsFullScreenLayout:(UIView*)view{
+-(BOOL)swipeView:(RHHorizontalSwipeView*)swipeView viewWantsFullScreenLayout:(UIView*)view{
     UIViewController *controller = [self viewControllerForView:view];
     
     return controller.wantsFullScreenLayout;

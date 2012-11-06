@@ -179,7 +179,7 @@
 }
 
 //controller updating 
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller orderedViewControllersChanged:(NSArray*)viewControllers{
+-(void)swipeViewController:(RHHorizontalSwipeViewController*)controller orderedViewControllersChanged:(NSArray*)viewControllers{
     //store the number of pages.
     _numberOfPages = controller.orderedViewControllers.count;
     
@@ -188,7 +188,7 @@
 
 
 //positional updating
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position{
+-(void)swipeViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position{
     [self updateForPercentagePosition:position];
 }
 

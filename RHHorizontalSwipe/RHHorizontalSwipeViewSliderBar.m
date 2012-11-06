@@ -154,7 +154,7 @@ static void * RHHorizontalSwipeViewSliderBarKVOContext = &RHHorizontalSwipeViewS
 
 
 //controller updating 
--(void)scrollViewController:(RHHorizontalSwipeViewController *)controller orderedViewControllersChangedFrom:(NSArray *)oldViewControllers to:(NSArray *)newViewControllers{
+-(void)swipeViewController:(RHHorizontalSwipeViewController *)controller orderedViewControllersChangedFrom:(NSArray *)oldViewControllers to:(NSArray *)newViewControllers{
     //just grab their titles and use them as our button titles
     [_buttons makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [_buttons release];
@@ -183,7 +183,7 @@ static void * RHHorizontalSwipeViewSliderBarKVOContext = &RHHorizontalSwipeViewS
 
 
 //positional updating
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position{
+-(void)swipeViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position{
     [self updateSliderToPosition:position];
 }
 

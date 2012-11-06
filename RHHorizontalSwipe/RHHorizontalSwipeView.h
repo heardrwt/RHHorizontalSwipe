@@ -34,9 +34,9 @@
 @protocol RHHorizontalSwipeViewDelegate <NSObject>
 @required
 
--(void)scrollView:(RHHorizontalSwipeView*)scrollView updateForPercentagePosition:(CGFloat)position;
+-(void)swipeView:(RHHorizontalSwipeView*)swipeView updateForPercentagePosition:(CGFloat)position;
 
--(BOOL)scrollView:(RHHorizontalSwipeView*)scrollView viewWantsFullScreenLayout:(UIView*)view;
+-(BOOL)swipeView:(RHHorizontalSwipeView*)swipeView viewWantsFullScreenLayout:(UIView*)view;
 
 @end
 

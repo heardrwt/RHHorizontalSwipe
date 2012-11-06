@@ -122,11 +122,11 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     //notify based on scroll update
-    if ([_delegate respondsToSelector:@selector(scrollView:updateForPercentagePosition:)]){
+    if ([_delegate respondsToSelector:@selector(swipeView:updateForPercentagePosition:)]){
         CGFloat position = scrollView.contentOffset.x;
         CGFloat total = scrollView.contentSize.width - scrollView.bounds.size.width;
         CGFloat percentage = total ? position/total : 0.0f;
-        [_delegate scrollView:self updateForPercentagePosition:percentage];
+        [_delegate swipeView:self updateForPercentagePosition:percentage];
     }
     
     //TODO: update based on page index change
@@ -187,8 +187,8 @@
     //otherwise ask our delegate if each view wants full screen layout
     BOOL wantsFullScreenlayout = YES; //default to full screen
     
-    if ([_delegate respondsToSelector:@selector(scrollView:viewWantsFullScreenLayout:)]){
-        wantsFullScreenlayout = [_delegate scrollView:self viewWantsFullScreenLayout:view];
+    if ([_delegate respondsToSelector:@selector(swipeView:viewWantsFullScreenLayout:)]){
+        wantsFullScreenlayout = [_delegate swipeView:self viewWantsFullScreenLayout:view];
     }
 
     //full screen

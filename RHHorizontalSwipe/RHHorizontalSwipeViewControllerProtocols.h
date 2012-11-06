@@ -42,12 +42,12 @@
 
 
 //view controllers changed
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller orderedViewControllersChangedFrom:(NSArray*)oldViewControllers to:(NSArray*)newViewControllers;
+-(void)swipeViewController:(RHHorizontalSwipeViewController*)controller orderedViewControllersChangedFrom:(NSArray*)oldViewControllers to:(NSArray*)newViewControllers;
 
 //positional updating
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedNumberOfPages:(NSInteger)numberOfPages;
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedCurrentPage:(NSInteger)page;
--(void)scrollViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position;
+-(void)swipeViewController:(RHHorizontalSwipeViewController*)controller updatedNumberOfPages:(NSInteger)numberOfPages;
+-(void)swipeViewController:(RHHorizontalSwipeViewController*)controller updatedCurrentPage:(NSInteger)page;
+-(void)swipeViewController:(RHHorizontalSwipeViewController*)controller updatedPercentagePosition:(CGFloat)position;
 
 @end
 
