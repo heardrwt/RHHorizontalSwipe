@@ -102,7 +102,7 @@
     //set our current controller to 1
     [self.layoutScrollViewController setCurrentIndex:1];
     self.layoutScrollViewController.autoLockingEnabled = YES;
-    self.layoutScrollViewController.autoHidingEnabled = NO;
+    self.layoutScrollViewController.autoHidingEnabled = YES;
     
     [self.window makeKeyAndVisible];
     return YES;
