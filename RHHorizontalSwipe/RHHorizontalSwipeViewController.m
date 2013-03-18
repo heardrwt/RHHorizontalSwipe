@@ -520,6 +520,11 @@
     return controller.wantsFullScreenLayout;
 }
 
+-(CGRect)swipeView:(RHHorizontalSwipeView*)swipeView proposedFrame:(CGRect)frame forView:(UIView*)view atIndex:(NSUInteger)index{
+    //we dont need this behaviour currently, so just return the proposed frame as final.
+    return frame;
+}
+
 
 #pragma mark - UINavigationControllerDelegate
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated{

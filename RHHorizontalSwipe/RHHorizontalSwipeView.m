@@ -90,15 +90,13 @@
     }
     
     //layout our ordered views based on their current dimensions paged horizontally
-    CGFloat xOffset = 0.0f;
+    NSUInteger index = 0;
     for (UIView *view in _orderedViews) {
-        CGRect frame = [self frameForView:view];
-        frame.origin.x = xOffset;
-        view.frame = frame;
-        xOffset += frame.size.width;
+        view.frame = [self frameForView:view atIndex:index];
+        index++;
     }
     
-    _scrollView.contentSize = CGSizeMake(xOffset, self.bounds.size.height);    
+    _scrollView.contentSize = CGSizeMake(self.bounds.size.width * [_orderedViews count], self.bounds.size.height);
 }
 
 
@@ -178,32 +176,38 @@
 }
 
 #pragma mark - view layout helpers
--(CGRect)frameForView:(UIView*)view{
-    // if our frame is not 0,0 then we always want to have full size views. (we ourselves are not under the status bar)
-    if (self.frame.origin.y != 0.0f) {
-        return _scrollView.bounds;
-    }
+-(CGRect)frameForView:(UIView*)view atIndex:(NSUInteger)index{
+    CGRect result = CGRectZero;
 
-    //otherwise ask our delegate if each view wants full screen layout
-    BOOL wantsFullScreenlayout = YES; //default to full screen
+    // if our frame is not 0,0 then we always want to have full size views. (we ourselves are not under the status bar)
+    BOOL viewIsUnderStatusBar = (self.frame.origin.y == 0.0f);
     
+    //ask our delegate if each view wants full screen layout
+    BOOL wantsFullScreenlayout = YES; //default to full screen
     if ([_delegate respondsToSelector:@selector(swipeView:viewWantsFullScreenLayout:)]){
         wantsFullScreenlayout = [_delegate swipeView:self viewWantsFullScreenLayout:view];
     }
 
-    //full screen
-    if (wantsFullScreenlayout){
-        return _scrollView.bounds;
+    if (viewIsUnderStatusBar || wantsFullScreenlayout){
+        CGRect frame = _scrollView.bounds;
+        frame.origin.x = (CGFloat)index * frame.size.width;
+        result = frame;
+    } else {
+        //not full screen, include status bar height in returned frame
+        CGFloat statusBarHeight = [self statusBarHeight];
+        CGRect frame = _scrollView.bounds;
+        frame.origin.y += statusBarHeight;
+        frame.size.height -= statusBarHeight;
+        frame.origin.x = (CGFloat)index * frame.size.width;
+        result = frame;
     }
-    
-    //not full screen, include status bar height in returned frame
-    CGFloat statusBarHeight = [self statusBarHeight];
-    CGRect frame = _scrollView.bounds;
-    frame.origin.y += statusBarHeight;
-    frame.size.height -= statusBarHeight;
-    
-    return frame;
 
+    //allow out delegate to have a final say on each views frame
+    if ([_delegate respondsToSelector:@selector(swipeView:proposedFrame:forView:atIndex:)]){
+        result = [_delegate swipeView:self proposedFrame:result forView:view atIndex:index];
+    }
+
+    return result;
 }
 
 -(CGFloat)statusBarHeight{

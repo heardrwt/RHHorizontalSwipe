@@ -35,8 +35,10 @@
 @required
 
 -(void)swipeView:(RHHorizontalSwipeView*)swipeView updateForPercentagePosition:(CGFloat)position;
-
 -(BOOL)swipeView:(RHHorizontalSwipeView*)swipeView viewWantsFullScreenLayout:(UIView*)view;
+
+@optional
+-(CGRect)swipeView:(RHHorizontalSwipeView*)swipeView proposedFrame:(CGRect)frame forView:(UIView*)view atIndex:(NSUInteger)index;
 
 @end
 
@@ -67,7 +69,7 @@
 +(UIScrollView*)firstScrollsToTopViewForView:(UIView*)view;
 
 //view layout helpers
--(CGRect)frameForView:(UIView*)view; //asks the delegate if view wants full screen layout, then accounts for status bar etc. (frames x is ignored when laying out content)
+-(CGRect)frameForView:(UIView*)view atIndex:(NSUInteger)index; //asks the delegate if view wants full screen layout, then accounts for status bar etc. (frames x is ignored when laying out content)
 -(CGFloat)statusBarHeight;
 
 @end
