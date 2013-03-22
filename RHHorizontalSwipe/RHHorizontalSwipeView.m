@@ -70,6 +70,7 @@
         }
         
         [self setNeedsLayout];
+        [self layoutIfNeeded];
     }
 }
 
